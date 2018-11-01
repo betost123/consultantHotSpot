@@ -9,6 +9,9 @@ Pods/
 Podfile
 Podfile.lock
 
+#images and other irrelevant resources
+docs/
+
 #other things I dont know what they are
 *.ser
 .gradle/

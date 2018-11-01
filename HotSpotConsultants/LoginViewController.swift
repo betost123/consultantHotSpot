@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -61,8 +62,25 @@ class LoginViewController: UIViewController {
         return button
     }()
     @objc func loginAction(sender: UIButton!) {
-        print("login!")
+        
+        guard let mail = mailTextField.text, let password = passwordTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: mail, password: password) { (user, error) in
+            if error != nil {
+                print(error ?? "error log in")
+                return
+            }
+            
+            //successfully logged in our user
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+            self.present(mpvc, animated: true, completion: nil)
+        }
     }
+    
     let registerButton : UIButton = {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)

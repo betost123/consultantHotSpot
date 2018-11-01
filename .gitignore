@@ -1,0 +1,25 @@
+#Mac OS X Finder
+.DS_Store
+
+#Private keys
+*.pem
+
+#Cocoa Pods
+Pods/
+Podfile
+Podfile.lock
+
+#other things I dont know what they are
+*.ser
+.gradle/
+build/
+!build.gradle
+.classpath
+.project
+bin/
+/.metadata/
+/.recommenders/
+.idea/*
+/xcuserdata
+.xcbkptlist
+.xcuserstate

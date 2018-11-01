@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RegisterViewController: UIViewController {
 
@@ -73,8 +74,39 @@ class RegisterViewController: UIViewController {
         return button
     }()
     @objc func registerAction(sender: UIButton!) {
-        print("register!")
+        guard let mail = mailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: mail, password: password) { (authResult, error) in
+            // ...
+            if error != nil {
+                print("error creating user")
+                print(error ?? "error")
+                return
+            }
+            guard let user = authResult?.user else { return }
+            
+            var ref: DatabaseReference!
+            ref = Database.database().reference()
+            let usersRef = ref.child("users").child(user.uid)
+            
+            let values = ["name" : name, "mail" : mail]
+            usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if err != nil {
+                    print(err ?? "error")
+                    return
+                }
+                print("saved user successfully into firebase db")
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+                self.present(mpvc, animated: true, completion: nil)
+            })
+        }
     }
+ 
+ 
     let returnToLoginButton : UIButton = {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
@@ -85,11 +117,13 @@ class RegisterViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+        
     @objc func returnToLoginAction(sender: UIButton!) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let lvc = storyboard.instantiateViewController(withIdentifier: "loginView") as! LoginViewController
         self.present(lvc, animated: true, completion: nil)
     }
+ 
     
     //MARK: Labels
     let navigationLabel : UILabel = {

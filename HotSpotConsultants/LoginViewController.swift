@@ -88,6 +88,7 @@ class LoginViewController: UIViewController {
         button.addTarget(self, action: #selector(registerAction), for: .touchUpInside)
         button.contentHorizontalAlignment = .right
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

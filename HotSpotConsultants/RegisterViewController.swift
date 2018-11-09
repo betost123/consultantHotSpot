@@ -9,17 +9,7 @@
 import UIKit
 import Firebase
 
-class RegisterViewController: UIViewController {
-
-    let inputsContainerView : UIView = {
-        let cv = UIView()
-        cv.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.75)
-        cv.layer.cornerRadius = 5
-        cv.layer.masksToBounds = true
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        return cv
-    }()
-    
+class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +18,115 @@ class RegisterViewController: UIViewController {
         view.addBackground(imageName: "snowMountain", contentMode: .scaleAspectFill)
         setupView()
         
+        addProfilePictureImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfilePictureImage)))
+        addProfilePictureImageView.isUserInteractionEnabled = true
         
     }
+    
+    //MARK: Functions
+    @objc func handleSelectProfilePictureImage() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        self.present(picker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker : UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            addProfilePictureImageView.image = selectedImage
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func returnToLoginAction(sender: UIButton!) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let lvc = storyboard.instantiateViewController(withIdentifier: "loginView") as! LoginViewController
+        self.present(lvc, animated: true, completion: nil)
+    }
+    
+    @objc func registerAction(sender: UIButton!) {
+        guard let mail = mailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: mail, password: password) { (authResult, error) in
+            // ...
+            if error != nil {
+                print("error creating user")
+                print(error ?? "error")
+                return
+            }
+            guard let user = authResult?.user else { return }
+            
+            let imageName = NSUUID().uuidString //gives a unique string
+            let storage = Storage.storage()
+            let storageRef = storage.reference().child("profileImages").child("\(imageName).png")
+            
+            if let uploadData = self.addProfilePictureImageView.image!.pngData() {
+                storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                    if error != nil {
+                        print(error ?? "error upload data")
+                        return
+                    }
+                    
+                    storageRef.downloadURL(completion: { (url, error) in
+                        guard let downloadURL = url?.absoluteString else {
+                            //uh-oh an error occured!
+                            return
+                        }
+                        
+                        let values = ["name" : name, "mail" : mail, "profileImageUrl" : downloadURL]
+                        self.registerUserIntoDatabaseWithUID(uid: user.uid, values: values as [String : AnyObject])
+                    })
+                    
+                    
+                })
+            }
+            
+
+        }
+    }
+    
+    private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        let usersRef = ref.child("users").child(uid)
+        
+        usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            if err != nil {
+                print(err ?? "error")
+                return
+            }
+            print("saved user successfully into firebase db")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+            self.present(mpvc, animated: true, completion: nil)
+        })
+    }
+    
+    //MARK: inputsContainerView
+    let inputsContainerView : UIView = {
+        let cv = UIView()
+        cv.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.75)
+        cv.layer.cornerRadius = 5
+        cv.layer.masksToBounds = true
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        return cv
+    }()
     
     //MARK: Text Fields
     let nameTextField : UITextField = {
@@ -73,40 +170,6 @@ class RegisterViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    @objc func registerAction(sender: UIButton!) {
-        guard let mail = mailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
-            print("Form is not valid")
-            return
-        }
-        
-        Auth.auth().createUser(withEmail: mail, password: password) { (authResult, error) in
-            // ...
-            if error != nil {
-                print("error creating user")
-                print(error ?? "error")
-                return
-            }
-            guard let user = authResult?.user else { return }
-            
-            var ref: DatabaseReference!
-            ref = Database.database().reference()
-            let usersRef = ref.child("users").child(user.uid)
-            
-            let values = ["name" : name, "mail" : mail]
-            usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil {
-                    print(err ?? "error")
-                    return
-                }
-                print("saved user successfully into firebase db")
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-                self.present(mpvc, animated: true, completion: nil)
-            })
-        }
-    }
- 
- 
     let returnToLoginButton : UIButton = {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
@@ -114,15 +177,10 @@ class RegisterViewController: UIViewController {
         button.addTarget(self, action: #selector(returnToLoginAction), for: .touchUpInside)
         button.contentHorizontalAlignment = .right
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-        
-    @objc func returnToLoginAction(sender: UIButton!) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let lvc = storyboard.instantiateViewController(withIdentifier: "loginView") as! LoginViewController
-        self.present(lvc, animated: true, completion: nil)
-    }
  
     
     //MARK: Labels
@@ -134,6 +192,14 @@ class RegisterViewController: UIViewController {
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    //MARK: Images
+    let addProfilePictureImageView : UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "profilePictureIcon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
     
@@ -195,6 +261,12 @@ class RegisterViewController: UIViewController {
         navigationLabel.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -20).isActive = true
         navigationLabel.heightAnchor.constraint(equalToConstant: 91.0).isActive = true
         navigationLabel.widthAnchor.constraint(equalToConstant: 201.0).isActive = true
+        
+        view.addSubview(addProfilePictureImageView)
+        addProfilePictureImageView.trailingAnchor.constraint(equalTo: inputsContainerView.trailingAnchor, constant: -5).isActive = true
+        addProfilePictureImageView.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -20).isActive = true
+        addProfilePictureImageView.heightAnchor.constraint(equalToConstant: 106).isActive = true
+        addProfilePictureImageView.widthAnchor.constraint(equalToConstant: 106).isActive = true
     }
 
 }

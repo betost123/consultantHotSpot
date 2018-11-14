@@ -20,6 +20,9 @@
 		E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */; };
 		E561DD73218B2DB9001CF59E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD72218B2DB9001CF59E /* User.swift */; };
 		E561DD782196126D001CF59E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD772196126D001CF59E /* Extensions.swift */; };
+		E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */; };
+		E561DD9E219B74E0001CF59E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9D219B74E0001CF59E /* Message.swift */; };
+		E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9F219CB76E001CF59E /* ChatController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewController.swift; sourceTree = "<group>"; };
 		E561DD72218B2DB9001CF59E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E561DD772196126D001CF59E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCollectionViewController.swift; sourceTree = "<group>"; };
+		E561DD9D219B74E0001CF59E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		E561DD9F219CB76E001CF59E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,8 +104,10 @@
 				E561DD71218B2D9B001CF59E /* Model */,
 				E527A86A2188B39B0049B464 /* ViewController.swift */,
 				E527A86C2188B39B0049B464 /* Main.storyboard */,
+				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
 				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
 				E561DD6D2189B22D001CF59E /* MyProfileViewController.swift */,
+				E561DD9F219CB76E001CF59E /* ChatController.swift */,
 				E527A87C2188ED480049B464 /* RegisterViewController.swift */,
 				E527A86F2188B39E0049B464 /* Assets.xcassets */,
 				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
@@ -114,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				E561DD72218B2DB9001CF59E /* User.swift */,
+				E561DD9D219B74E0001CF59E /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -260,12 +269,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */,
 				E561DD6E2189B22D001CF59E /* MyProfileViewController.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
 				E561DD782196126D001CF59E /* Extensions.swift in Sources */,
 				E527A8692188B39B0049B464 /* AppDelegate.swift in Sources */,
 				E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */,
+				E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */,
+				E561DD9E219B74E0001CF59E /* Message.swift in Sources */,
 				E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */,
 				E561DD73218B2DB9001CF59E /* User.swift in Sources */,
 			);

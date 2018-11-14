@@ -75,9 +75,8 @@ class LoginViewController: UIViewController {
             }
             
             //successfully logged in our user
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-            self.present(mpvc, animated: true, completion: nil)
+            print("logged in!")
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -93,9 +92,8 @@ class LoginViewController: UIViewController {
         return button
     }()
     @objc func registerAction(sender: UIButton!) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rvc = storyboard.instantiateViewController(withIdentifier: "registerView") as! RegisterViewController
-        self.present(rvc, animated: true, completion: nil)
+        let registerController = RegisterViewController()
+        present(registerController, animated: true, completion: nil)
     }
     
     //MARK: Labels

@@ -52,9 +52,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc func returnToLoginAction(sender: UIButton!) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let lvc = storyboard.instantiateViewController(withIdentifier: "loginView") as! LoginViewController
-        self.present(lvc, animated: true, completion: nil)
+        let loginController = LoginViewController()
+        present(loginController, animated: true, completion: nil)
     }
     
     @objc func registerAction(sender: UIButton!) {
@@ -76,7 +75,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             let storage = Storage.storage()
             let storageRef = storage.reference().child("profileImages").child("\(imageName).png")
             
-            if let uploadData = self.addProfilePictureImageView.image!.pngData() {
+            //image compression
+            if let profileImage = self.addProfilePictureImageView.image, let uploadData = profileImage.jpegData(compressionQuality: 0.1) {
+                
                 storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         print(error ?? "error upload data")
@@ -112,9 +113,12 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 return
             }
             print("saved user successfully into firebase db")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-            self.present(mpvc, animated: true, completion: nil)
+            //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            //let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+            //self.present(mpvc, animated: true, completion: nil)
+            //let newChatController = ChatController()
+            //self.navigationController?.pushViewController(newChatController, animated: true)
+            self.dismiss(animated: true, completion: nil)
         })
     }
     
@@ -198,6 +202,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     let addProfilePictureImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profilePictureIcon")
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 53.0
+        imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

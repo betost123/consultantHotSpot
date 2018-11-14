@@ -15,6 +15,7 @@ class ChatController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.addBackground(imageName: "snowMountain", contentMode: .scaleAspectFill)
+        tableView.backgroundView = UIImageView(image: UIImage(named: "snowMountain"))
         
         let logOutButton = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOut))
         self.navigationItem.leftBarButtonItem = logOutButton
@@ -60,9 +61,8 @@ class ChatController: UITableViewController {
         return messages.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("rows")
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        print("försöker skriva till cell?")
+        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8556292808)
         let message = messages[indexPath.row]
         cell.textLabel?.text = message.toID
         cell.detailTextLabel?.text = message.text

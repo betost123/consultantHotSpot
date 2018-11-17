@@ -13,19 +13,7 @@ class UserCell : UITableViewCell {
     
     var message : Message? {
         didSet {
-            //set name as "message title"
-            if let toID = message?.toID {
-                let ref = Database.database().reference().child("users").child(toID)
-                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    if let dictionary = snapshot.value as? [String : AnyObject] {
-                        self.textLabel?.text = dictionary["name"] as? String
-                        
-                        if let profileImgageUrl = dictionary["profileImageUrl"] as? String {
-                            self.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImgageUrl)
-                        }
-                    }
-                }, withCancel: nil)
-            }
+            setupNameAndAvatar()
             
             detailTextLabel?.text = message?.text
             
@@ -38,6 +26,30 @@ class UserCell : UITableViewCell {
                 timeLabel.text = dateFormatter.string(from: timestampDate as Date)
             }
 
+        }
+    }
+    
+    private func setupNameAndAvatar() {
+        let chatPartnerID : String?
+        
+        if message?.fromID == Auth.auth().currentUser?.uid {
+            chatPartnerID = message?.toID
+        } else {
+            chatPartnerID = message?.fromID
+        }
+        
+        //set name as "message title"
+        if let id = chatPartnerID {
+            let ref = Database.database().reference().child("users").child(id)
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String : AnyObject] {
+                    self.textLabel?.text = dictionary["name"] as? String
+                    
+                    if let profileImgageUrl = dictionary["profileImageUrl"] as? String {
+                        self.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImgageUrl)
+                    }
+                }
+            }, withCancel: nil)
         }
     }
     

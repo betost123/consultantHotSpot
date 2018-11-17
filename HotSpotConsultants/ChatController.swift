@@ -30,7 +30,45 @@ class ChatController: UITableViewController {
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         
-        observeMessages()
+        //observeMessages()
+        observeUserMessages()
+    }
+    
+    func observeUserMessages() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        let ref = Database.database().reference().child("user-messages").child(uid)
+        ref.observe(.childAdded, with: { (snapshot) in
+            let messageID = snapshot.key
+            let messageRef = Database.database().reference().child("messages").child(messageID)
+            messageRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String : AnyObject] {
+                    let message = Message()
+                    
+                    message.fromID = dictionary["fromID"] as? String
+                    message.text = (dictionary["text"] as? String?)!
+                    message.timestamp = dictionary["timestamp"] as? NSNumber
+                    message.toID = dictionary["toID"] as? String
+                    
+                    //only keep track of one message per recipient, so that we just display the latest message from each user in the table view
+                    if let toID = message.toID {
+                        self.messageDictionary[toID] = message
+                        
+                        self.messages = Array(self.messageDictionary.values)
+                        self.messages.sort(by: { (message1, message2) -> Bool in
+                            return message1.timestamp!.intValue > message2.timestamp!.intValue
+                        })
+                    }
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }, withCancel: nil)
+            
+        }, withCancel: nil)
     }
     
     var messages = [Message]()
@@ -127,8 +165,15 @@ class ChatController: UITableViewController {
         }
         
         let loginController = LoginViewController()
+        loginController.chatController = self
         present(loginController, animated: true, completion: nil)
     }
     
+    func clearTableView() {
+        messages.removeAll()
+        messageDictionary.removeAll()
+        tableView.reloadData()
+        observeUserMessages()
+    }
     
 }

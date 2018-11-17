@@ -51,7 +51,23 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         let fromID = Auth.auth().currentUser!.uid
         let timestamp : NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         let values = ["text" : inputTextfield.text!, "toID" : toID, "fromID" : fromID, "timestamp" : timestamp] as [String : Any]
-        childRef.updateChildValues(values as [AnyHashable : Any])
+        //childRef.updateChildValues(values as [AnyHashable : Any])
+        
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error ?? "")
+                return
+            }
+            
+            guard let messageId = childRef.key else { return }
+            
+            let userMessagesRef = Database.database().reference().child("user-messages").child(fromID).child(messageId)
+            userMessagesRef.setValue(1)
+            
+            let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toID).child(messageId)
+            recipientUserMessagesRef.setValue(1)
+        }
+        
     }
     
     func setupInputComponents() {

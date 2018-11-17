@@ -14,7 +14,6 @@ class ChatController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.addBackground(imageName: "snowMountain", contentMode: .scaleAspectFill)
         tableView.backgroundView = UIImageView(image: UIImage(named: "snowMountain"))
         
         let logOutButton = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOut))
@@ -29,25 +28,35 @@ class ChatController: UITableViewController {
         //if user aint logged in then kick him out
         checkIfUserIsLoggedIn()
         
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+        
         observeMessages()
     }
     
     var messages = [Message]()
+    var messageDictionary = [String : Message]()
     
     func observeMessages() {
         
         Database.database().reference().child("messages").observe(.childAdded, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String : AnyObject] {
                 let message = Message()
-                //message.setValuesForKeys(dictionary)
                 
                 message.fromID = dictionary["fromID"] as? String
                 message.text = (dictionary["text"] as? String?)!
                 message.timestamp = dictionary["timestamp"] as? NSNumber
                 message.toID = dictionary["toID"] as? String
  
-                self.messages.append(message)
-                print("meddelanden: \(self.messages.count)")
+                //only keep track of one message per recipient, so that we just display the latest message from each user in the table view
+                if let toID = message.toID {
+                    self.messageDictionary[toID] = message
+                    
+                    self.messages = Array(self.messageDictionary.values)
+                    self.messages.sort(by: { (message1, message2) -> Bool in
+                        return message1.timestamp!.intValue > message2.timestamp!.intValue
+                    })
+                }
+                
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -61,13 +70,19 @@ class ChatController: UITableViewController {
         return messages.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
+        
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8556292808)
         let message = messages[indexPath.row]
-        cell.textLabel?.text = message.toID
-        cell.detailTextLabel?.text = message.text
+        
+        
+        cell.message = message
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 76.0
     }
     
     

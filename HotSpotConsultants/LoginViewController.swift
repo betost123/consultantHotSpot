@@ -77,6 +77,8 @@ class LoginViewController: UIViewController {
             //successfully logged in our user
             print("logged in!")
             self.dismiss(animated: true, completion: nil)
+            //let chatController = ChatController()
+            //self.present(chatController, animated: true, completion: nil)
         }
     }
     

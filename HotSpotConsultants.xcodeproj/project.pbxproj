@@ -23,6 +23,8 @@
 		E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */; };
 		E561DD9E219B74E0001CF59E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9D219B74E0001CF59E /* Message.swift */; };
 		E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9F219CB76E001CF59E /* ChatController.swift */; };
+		E561DDA2219DC3C5001CF59E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA1219DC3C5001CF59E /* TabBarController.swift */; };
+		E561DDA721A059D5001CF59E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA621A059D5001CF59E /* UserCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCollectionViewController.swift; sourceTree = "<group>"; };
 		E561DD9D219B74E0001CF59E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		E561DD9F219CB76E001CF59E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		E561DDA1219DC3C5001CF59E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E561DDA621A059D5001CF59E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +102,7 @@
 		E527A8672188B39B0049B464 /* HotSpotConsultants */ = {
 			isa = PBXGroup;
 			children = (
+				E561DDA521A059B7001CF59E /* View */,
 				E561DD7621961255001CF59E /* Helpers */,
 				E561DD74218B3F30001CF59E /* Controller */,
 				E527A8682188B39B0049B464 /* AppDelegate.swift */,
@@ -105,6 +110,7 @@
 				E527A86A2188B39B0049B464 /* ViewController.swift */,
 				E527A86C2188B39B0049B464 /* Main.storyboard */,
 				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
+				E561DDA1219DC3C5001CF59E /* TabBarController.swift */,
 				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
 				E561DD6D2189B22D001CF59E /* MyProfileViewController.swift */,
 				E561DD9F219CB76E001CF59E /* ChatController.swift */,
@@ -140,6 +146,14 @@
 				E561DD772196126D001CF59E /* Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E561DDA521A059B7001CF59E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E561DDA621A059D5001CF59E /* UserCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */,
+				E561DDA721A059D5001CF59E /* UserCell.swift in Sources */,
 				E561DD6E2189B22D001CF59E /* MyProfileViewController.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
@@ -278,6 +293,7 @@
 				E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */,
 				E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */,
 				E561DD9E219B74E0001CF59E /* Message.swift in Sources */,
+				E561DDA2219DC3C5001CF59E /* TabBarController.swift in Sources */,
 				E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */,
 				E561DD73218B2DB9001CF59E /* User.swift in Sources */,
 			);

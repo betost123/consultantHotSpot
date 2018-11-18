@@ -25,6 +25,7 @@
 		E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9F219CB76E001CF59E /* ChatController.swift */; };
 		E561DDA2219DC3C5001CF59E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA1219DC3C5001CF59E /* TabBarController.swift */; };
 		E561DDA721A059D5001CF59E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA621A059D5001CF59E /* UserCell.swift */; };
+		E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA821A17703001CF59E /* ChatMessageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		E561DD9F219CB76E001CF59E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		E561DDA1219DC3C5001CF59E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E561DDA621A059D5001CF59E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		E561DDA821A17703001CF59E /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				E561DDA621A059D5001CF59E /* UserCell.swift */,
+				E561DDA821A17703001CF59E /* ChatMessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				E561DD6E2189B22D001CF59E /* MyProfileViewController.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
+				E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */,
 				E561DD782196126D001CF59E /* Extensions.swift in Sources */,
 				E527A8692188B39B0049B464 /* AppDelegate.swift in Sources */,
 				E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */,

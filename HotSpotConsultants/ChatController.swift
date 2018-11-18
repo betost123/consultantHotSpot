@@ -118,10 +118,33 @@ class ChatController: UITableViewController {
         
         return cell
     }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 76.0
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        guard let chatPartnerID = message.chatPartnerID() else {
+            return
+        }
+        
+        let ref = Database.database().reference().child("users").child(chatPartnerID)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let dictionary = snapshot.value as? [String : AnyObject] else {
+                return
+            }
+            let user = User()
+            //user.setValuesForKeys(dictionary)
+            user.id = chatPartnerID
+            user.mail = dictionary["mail"] as? String
+            user.name = dictionary["name"] as? String
+            user.profileImageUrl = dictionary["profileImageUrl"] as? String
+            
+            
+            self.showChatControllerForUser(user: user)
+        }, withCancel: nil)
+        
+    }
+    
     
     
     @objc func showChatControllerForUser(user: User) {

@@ -9,14 +9,17 @@
 import UIKit
 import Firebase
 
-class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDelegate {
+class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
     //MARK: Properties
+    let cellID = "cellID"
     var user : User? {
         didSet {
             navigationItem.title = user?.name
+            observeMessage()
         }
     }
+    var messages = [Message]()
     
     lazy var inputTextfield : UITextField = {
         let tf = UITextField()
@@ -36,8 +39,37 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "snowMountain")!)
         
         //navigationItem.title = "Chat Controller"
+        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
+        
+        collectionView.alwaysBounceVertical = true
+        collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellID)
         
         setupInputComponents()
+    }
+    
+    func observeMessage() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let userMessagesRef = Database.database().reference().child("user-messages").child(uid)
+        userMessagesRef.observe(.childAdded, with: { (snapshot) in
+            let messageID = snapshot.key
+            let messagesRef = Database.database().reference().child("messages").child(messageID)
+            
+            messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String : AnyObject] else {return}
+                let message = Message()
+                message.fromID = dictionary["fromID"] as? String
+                message.text = (dictionary["text"] as? String?)!
+                message.timestamp = dictionary["timestamp"] as? NSNumber
+                message.toID = dictionary["toID"] as? String
+                
+                if message.chatPartnerID() == self.user?.id {
+                    self.messages.append(message)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }
+            }, withCancel: nil)
+        }, withCancel: nil)
     }
     
     @objc func handleSendMessage() {
@@ -77,7 +109,8 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         
         view.addSubview(containerView)
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83).isActive = true
+        //containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -105,5 +138,18 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
     }
     
     // MARK: - Table view data source
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatMessageCell
+        
+        cell.textView.text = messages[indexPath.row].text
+        
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 80)
+    }
     
 }

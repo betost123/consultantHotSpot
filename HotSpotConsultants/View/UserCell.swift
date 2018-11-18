@@ -30,16 +30,9 @@ class UserCell : UITableViewCell {
     }
     
     private func setupNameAndAvatar() {
-        let chatPartnerID : String?
-        
-        if message?.fromID == Auth.auth().currentUser?.uid {
-            chatPartnerID = message?.toID
-        } else {
-            chatPartnerID = message?.fromID
-        }
         
         //set name as "message title"
-        if let id = chatPartnerID {
+        if let id = message?.chatPartnerID() {
             let ref = Database.database().reference().child("users").child(id)
             ref.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dictionary = snapshot.value as? [String : AnyObject] {

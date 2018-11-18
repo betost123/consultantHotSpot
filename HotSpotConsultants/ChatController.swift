@@ -20,7 +20,7 @@ class ChatController: UITableViewController {
         self.navigationItem.leftBarButtonItem = logOutButton
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         
-        let chatButton = UIBarButtonItem(title: "chat", style: .plain, target: self, action: #selector(handleMessages))
+        let chatButton = UIBarButtonItem(title: "friends", style: .plain, target: self, action: #selector(handleMessages))
         self.navigationItem.rightBarButtonItem = chatButton
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         
@@ -61,19 +61,26 @@ class ChatController: UITableViewController {
                         })
                     }
                     
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    //Prevent having to reload data every time we observe a new message, now reload once / second
+                    self.timer?.invalidate()
+                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
                 }
             }, withCancel: nil)
             
         }, withCancel: nil)
     }
     
+    var timer : Timer?
+    @objc func handleReloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     var messages = [Message]()
     var messageDictionary = [String : Message]()
     
+    /*
     func observeMessages() {
         
         Database.database().reference().child("messages").observe(.childAdded, with: { (snapshot) in
@@ -103,6 +110,7 @@ class ChatController: UITableViewController {
         }, withCancel: nil)
     
     }
+ */
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count

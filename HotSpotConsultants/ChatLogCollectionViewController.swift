@@ -120,6 +120,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("send", for: .normal)
+        sendButton.setTitleColor(#colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1), for: .normal)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.addTarget(self, action: #selector(handleSendMessage), for: .touchUpInside)
         
@@ -138,6 +139,26 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
     }
+    private func setupCell(cell: ChatMessageCell, message: Message) {
+        if let profileImageUrl = self.user?.profileImageUrl {
+            cell.profileImageView.loadImageUsingCacheWithURLString(urlString: profileImageUrl)
+        }
+        if message.fromID == Auth.auth().currentUser?.uid {
+            //outgoing blue bubble
+            cell.bubbleView.backgroundColor = ChatMessageCell.blueColor
+            cell.textView.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            cell.bubbleRightAnchor?.isActive = true
+            cell.bubbleLeftAnchor?.isActive = false
+            cell.profileImageView.isHidden = true
+        } else {
+            //incoming grey bubble
+            cell.bubbleView.backgroundColor = ChatMessageCell.greyColor
+            cell.textView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            cell.bubbleRightAnchor?.isActive = false
+            cell.bubbleLeftAnchor?.isActive = true
+            cell.profileImageView.isHidden = false
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSendMessage()
@@ -153,6 +174,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         
         let message = messages[indexPath.item]
         cell.textView.text = messages[indexPath.row].text
+        setupCell(cell: cell, message: message)
         cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
         
         return cell

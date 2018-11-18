@@ -52,8 +52,8 @@ class ChatController: UITableViewController {
                     message.toID = dictionary["toID"] as? String
                     
                     //only keep track of one message per recipient, so that we just display the latest message from each user in the table view
-                    if let toID = message.toID {
-                        self.messageDictionary[toID] = message
+                    if let chatPartnerID = message.chatPartnerID() {
+                        self.messageDictionary[chatPartnerID] = message
                         
                         self.messages = Array(self.messageDictionary.values)
                         self.messages.sort(by: { (message1, message2) -> Bool in

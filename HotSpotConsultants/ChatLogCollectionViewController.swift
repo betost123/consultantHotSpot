@@ -32,15 +32,17 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
-    
+
+    //MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "snowMountain")!)
         
-        //navigationItem.title = "Chat Controller"
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 65, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 65, right: 0)
         collectionView.alwaysBounceVertical = true
         collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellID)
         
@@ -83,13 +85,14 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         let fromID = Auth.auth().currentUser!.uid
         let timestamp : NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         let values = ["text" : inputTextfield.text!, "toID" : toID, "fromID" : fromID, "timestamp" : timestamp] as [String : Any]
-        //childRef.updateChildValues(values as [AnyHashable : Any])
         
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
                 print(error ?? "")
                 return
             }
+            
+            self.inputTextfield.text = nil
             
             guard let messageId = childRef.key else { return }
             
@@ -102,6 +105,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         
     }
     
+    //MARK: Design Setup
     func setupInputComponents() {
         let containerView = UIView()
         containerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -131,6 +135,9 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         inputTextfield.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         inputTextfield.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.85).isActive = true
     }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSendMessage()
@@ -144,12 +151,27 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatMessageCell
         
+        let message = messages[indexPath.item]
         cell.textView.text = messages[indexPath.row].text
+        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
         
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 80)
+        var height : CGFloat = 80
+        
+        if let text = messages[indexPath.row].text {
+            height = estimatedFrameForText(text: text).height + 20
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
+    }
+    
+    private func estimatedFrameForText(text : String) -> CGRect{
+        let size = CGSize(width: view.bounds.width*2/3, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15)], context: nil)
     }
     
 }

@@ -26,7 +26,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         collectionView.backgroundView = backgroundImageView
         
         //Navigation bar items
-        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         
         //Set up view
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0)

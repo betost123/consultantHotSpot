@@ -18,14 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let mainController = /*TabBarController()*/ ChatController() //as UIViewController
-        let navigationController = UINavigationController(rootViewController: mainController)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
+        //window = UIWindow(frame: UIScreen.main.bounds)
+        //let mainController = ChatController() //TabBarController()
+        //let navigationController = UINavigationController(rootViewController: mainController)
+        //self.window?.rootViewController = navigationController
+        //self.window?.makeKeyAndVisible()
         
-        //window?.rootViewController = UINavigationController(rootViewController: ChatController())
-        //FirebaseApp.configure()
+
         return true
     }
 

@@ -18,8 +18,8 @@ class TabBarController: UITabBarController {
         firstVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         
         let tabBarList = [firstVC]
-        
         viewControllers = tabBarList
+        //tabBarController?.viewControllers = tabBarList.map {UINavigationController(rootViewController: $0)}
         
     }
     

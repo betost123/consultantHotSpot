@@ -26,7 +26,8 @@ class ChatController: UITableViewController {
         
         //Navigation bar items
         let logOutButton = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOut))
-        self.navigationItem.leftBarButtonItem = logOutButton
+        //can be added with image and title, see saved page in web folder
+        self.navigationItem.setLeftBarButton(logOutButton, animated: true)
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         let chatButton = UIBarButtonItem(title: "new message", style: .plain, target: self, action: #selector(handleMessages))
         self.navigationItem.rightBarButtonItem = chatButton

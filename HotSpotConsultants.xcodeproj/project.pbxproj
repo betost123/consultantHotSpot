@@ -23,7 +23,6 @@
 		E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */; };
 		E561DD9E219B74E0001CF59E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9D219B74E0001CF59E /* Message.swift */; };
 		E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9F219CB76E001CF59E /* ChatController.swift */; };
-		E561DDA2219DC3C5001CF59E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA1219DC3C5001CF59E /* TabBarController.swift */; };
 		E561DDA721A059D5001CF59E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA621A059D5001CF59E /* UserCell.swift */; };
 		E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA821A17703001CF59E /* ChatMessageCell.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +47,6 @@
 		E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCollectionViewController.swift; sourceTree = "<group>"; };
 		E561DD9D219B74E0001CF59E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		E561DD9F219CB76E001CF59E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
-		E561DDA1219DC3C5001CF59E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E561DDA621A059D5001CF59E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		E561DDA821A17703001CF59E /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 				E527A86A2188B39B0049B464 /* ViewController.swift */,
 				E527A86C2188B39B0049B464 /* Main.storyboard */,
 				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
-				E561DDA1219DC3C5001CF59E /* TabBarController.swift */,
 				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
 				E561DD6D2189B22D001CF59E /* MyProfileViewController.swift */,
 				E561DD9F219CB76E001CF59E /* ChatController.swift */,
@@ -297,7 +294,6 @@
 				E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */,
 				E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */,
 				E561DD9E219B74E0001CF59E /* Message.swift in Sources */,
-				E561DDA2219DC3C5001CF59E /* TabBarController.swift in Sources */,
 				E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */,
 				E561DD73218B2DB9001CF59E /* User.swift in Sources */,
 			);

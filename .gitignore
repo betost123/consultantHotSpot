@@ -5,8 +5,8 @@
 *.pem
 
 #Cocoa Pods
-Pods/
-Podfile
+#Pods/
+#Podfile
 Podfile.lock
 
 #images and other irrelevant resources

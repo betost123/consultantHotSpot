@@ -11,12 +11,10 @@
 		E527A8692188B39B0049B464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527A8682188B39B0049B464 /* AppDelegate.swift */; };
 		E527A86B2188B39B0049B464 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527A86A2188B39B0049B464 /* ViewController.swift */; };
 		E527A86E2188B39B0049B464 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E527A86C2188B39B0049B464 /* Main.storyboard */; };
-		E527A8702188B39E0049B464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E527A86F2188B39E0049B464 /* Assets.xcassets */; };
 		E527A8732188B39E0049B464 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E527A8712188B39E0049B464 /* LaunchScreen.storyboard */; };
 		E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527A87A2188ED3B0049B464 /* LoginViewController.swift */; };
 		E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527A87C2188ED480049B464 /* RegisterViewController.swift */; };
 		E527A87F2189A26F0049B464 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E527A87E2189A26F0049B464 /* GoogleService-Info.plist */; };
-		E561DD6E2189B22D001CF59E /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD6D2189B22D001CF59E /* MyProfileViewController.swift */; };
 		E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */; };
 		E561DD73218B2DB9001CF59E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD72218B2DB9001CF59E /* User.swift */; };
 		E561DD782196126D001CF59E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD772196126D001CF59E /* Extensions.swift */; };
@@ -25,6 +23,8 @@
 		E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD9F219CB76E001CF59E /* ChatController.swift */; };
 		E561DDA721A059D5001CF59E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA621A059D5001CF59E /* UserCell.swift */; };
 		E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA821A17703001CF59E /* ChatMessageCell.swift */; };
+		E598C4B321AACEDF00175BDC /* Assets copy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E598C4B221AACEDF00175BDC /* Assets copy.xcassets */; };
+		E598C4B521AF211A00175BDC /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,13 +34,11 @@
 		E527A8682188B39B0049B464 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E527A86A2188B39B0049B464 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E527A86D2188B39B0049B464 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E527A86F2188B39E0049B464 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E527A8722188B39E0049B464 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E527A8742188B39E0049B464 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E527A87A2188ED3B0049B464 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E527A87C2188ED480049B464 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E527A87E2189A26F0049B464 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E561DD6D2189B22D001CF59E /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewController.swift; sourceTree = "<group>"; };
 		E561DD72218B2DB9001CF59E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E561DD772196126D001CF59E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -49,6 +47,9 @@
 		E561DD9F219CB76E001CF59E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		E561DDA621A059D5001CF59E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		E561DDA821A17703001CF59E /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
+		E598C4B121AACE3700175BDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
+		E598C4B221AACEDF00175BDC /* Assets copy.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets copy.xcassets"; sourceTree = "<group>"; };
+		E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +85,7 @@
 		E527A85C2188B39B0049B464 = {
 			isa = PBXGroup;
 			children = (
+				E598C4B221AACEDF00175BDC /* Assets copy.xcassets */,
 				E527A8672188B39B0049B464 /* HotSpotConsultants */,
 				E527A8662188B39B0049B464 /* Products */,
 				2F80E2AF58C33AAFEE3CCF60 /* Pods */,
@@ -111,14 +113,14 @@
 				E527A86C2188B39B0049B464 /* Main.storyboard */,
 				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
 				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
-				E561DD6D2189B22D001CF59E /* MyProfileViewController.swift */,
+				E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */,
 				E561DD9F219CB76E001CF59E /* ChatController.swift */,
 				E527A87C2188ED480049B464 /* RegisterViewController.swift */,
-				E527A86F2188B39E0049B464 /* Assets.xcassets */,
 				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
 				E527A8712188B39E0049B464 /* LaunchScreen.storyboard */,
 				E527A8742188B39E0049B464 /* Info.plist */,
 				E527A87E2189A26F0049B464 /* GoogleService-Info.plist */,
+				E598C4B121AACE3700175BDC /* Assets.xcassets */,
 			);
 			path = HotSpotConsultants;
 			sourceTree = "<group>";
@@ -218,7 +220,7 @@
 			files = (
 				E527A8732188B39E0049B464 /* LaunchScreen.storyboard in Resources */,
 				E527A87F2189A26F0049B464 /* GoogleService-Info.plist in Resources */,
-				E527A8702188B39E0049B464 /* Assets.xcassets in Resources */,
+				E598C4B321AACEDF00175BDC /* Assets copy.xcassets in Resources */,
 				E527A86E2188B39B0049B464 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,9 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E598C4B521AF211A00175BDC /* ProfileTableViewController.swift in Sources */,
 				E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */,
 				E561DDA721A059D5001CF59E /* UserCell.swift in Sources */,
-				E561DD6E2189B22D001CF59E /* MyProfileViewController.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
 				E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */,

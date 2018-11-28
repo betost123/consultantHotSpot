@@ -11,6 +11,7 @@ import Firebase
 
 class LoginViewController: UIViewController {
     var chatController : ChatController?
+    var profileControllerTableView : ProfileTableViewController?
     
     let inputsContainerView : UIView = {
        let cv = UIView()
@@ -79,7 +80,7 @@ class LoginViewController: UIViewController {
             print("logged in!")
            
             //FIXME: Den ska rensa table view innan man loggar in
-            //self.chatController?.clearTableView()
+            self.chatController?.clearTableView()
             
             self.dismiss(animated: true, completion: nil)
             //let chatController = ChatController()

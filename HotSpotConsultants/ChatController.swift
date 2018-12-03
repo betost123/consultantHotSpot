@@ -35,7 +35,7 @@ class ChatController: UITableViewController {
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         
         //Tab Bar items
-        self.tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1)
+        self.tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         
         //if user aint logged in then kick him out
         checkIfUserIsLoggedIn()

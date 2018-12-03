@@ -65,7 +65,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
     //Text field
     lazy var inputContainerView : UIView = {
         let containerView = UIView()
-        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 55)
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 84)
         containerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
         let sendButton = UIButton(type: .system)
@@ -76,15 +76,17 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         
         containerView.addSubview(sendButton)
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 6).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         containerView.addSubview(self.inputTextfield)
         self.inputTextfield.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        self.inputTextfield.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        //self.inputTextfield.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        self.inputTextfield.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 6).isActive = true
         self.inputTextfield.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        self.inputTextfield.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.85).isActive = true
+        //self.inputTextfield.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.85).isActive = true
+        self.inputTextfield.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         return containerView
     }()

@@ -25,6 +25,7 @@
 		E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DDA821A17703001CF59E /* ChatMessageCell.swift */; };
 		E598C4B321AACEDF00175BDC /* Assets copy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E598C4B221AACEDF00175BDC /* Assets copy.xcassets */; };
 		E598C4B521AF211A00175BDC /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */; };
+		E5FFE52121B5BE8400767854 /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52021B5BE8400767854 /* Experience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		E598C4B121AACE3700175BDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		E598C4B221AACEDF00175BDC /* Assets copy.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets copy.xcassets"; sourceTree = "<group>"; };
 		E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		E5FFE52021B5BE8400767854 /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +132,7 @@
 			children = (
 				E561DD72218B2DB9001CF59E /* User.swift */,
 				E561DD9D219B74E0001CF59E /* Message.swift */,
+				E5FFE52021B5BE8400767854 /* Experience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				E598C4B521AF211A00175BDC /* ProfileTableViewController.swift in Sources */,
 				E561DDA0219CB76E001CF59E /* ChatController.swift in Sources */,
 				E561DDA721A059D5001CF59E /* UserCell.swift in Sources */,
+				E5FFE52121B5BE8400767854 /* Experience.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
 				E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */,

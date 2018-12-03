@@ -10,10 +10,12 @@ import UIKit
 import Firebase
 
 class ProfileTableViewController: UITableViewController {
+    //MARK: Variables
     let cellIDp = "cellIDp"
     let cellIDs = "cellIDs"
     let cellIDa = "cellIDa"
     let cellIDe = "cellIDe"
+    var experiences = [Experience]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +23,14 @@ class ProfileTableViewController: UITableViewController {
         let backgroundImageView = UIImageView(image: UIImage(named: "snowMountain"))
         backgroundImageView.contentMode = .scaleAspectFill
         tableView.backgroundView = backgroundImageView
+        
         //Navigation bar items
+        self.navigationItem.title = "My Profile"
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         let logOutButton = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOut))
         self.navigationItem.leftBarButtonItem = logOutButton
+        let settingsButton = UIBarButtonItem(title: "settings", style: .plain, target: self, action: #selector(settingsButtonHandler))
+        self.navigationItem.rightBarButtonItem = settingsButton
         
         //register cells
         tableView.register(ProfileHeaderCell.self, forCellReuseIdentifier: cellIDp)
@@ -40,16 +46,28 @@ class ProfileTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 5 + experiences.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDp, for: indexPath) as! ProfileHeaderCell
+            
+            //Get user from database
+            let uid = Auth.auth().currentUser?.uid
+            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    cell.navigationLabel.text = dictionary["name"] as? String
+                    if let imgURL = dictionary["profileImageUrl"] as? String {
+                        cell.profilePicture.loadImageUsingCacheWithURLString(urlString: imgURL)
+                    }
+                }
+            }, withCancel: nil)
+ 
             cell.backgroundColor = UIColor.clear
+            
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as! SkillsCell
@@ -78,7 +96,7 @@ class ProfileTableViewController: UITableViewController {
         } else if indexPath.row == 1 {
             return 75
         } else if indexPath.row == 2 {
-            return 160
+            return 190
         } else if indexPath.row == 3 {
             return 150
         }
@@ -91,13 +109,6 @@ class ProfileTableViewController: UITableViewController {
         if Auth.auth().currentUser?.uid == nil {
             //user isn't logged in
             perform(#selector(logOut), with: nil, afterDelay: 0) //present controller after it's loaded
-        } else {
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    self.navigationItem.title = dictionary["name"] as? String
-                }
-            }, withCancel: nil)
         }
     }
     
@@ -112,6 +123,10 @@ class ProfileTableViewController: UITableViewController {
         let loginController = LoginViewController()
         loginController.profileControllerTableView = self
         present(loginController, animated: true, completion: nil)
+    }
+    
+    @objc func settingsButtonHandler() {
+        print("go to settings")
     }
 
 }
@@ -136,7 +151,7 @@ class ProfileHeaderCell : UITableViewCell {
     
     let profilePicture : UIImageView = {
         let pic = UIImageView()
-        pic.image = UIImage(named: "profilePictureIcon")
+        //pic.image = UIImage(named: "profilePictureIcon")
         pic.layer.cornerRadius = 110/2
         pic.layer.masksToBounds = true
         pic.translatesAutoresizingMaskIntoConstraints = false
@@ -145,7 +160,7 @@ class ProfileHeaderCell : UITableViewCell {
     
     let navigationLabel : UILabel = {
         let label = UILabel()
-        label.text = "BETINA ANDERSSON"
+        //label.text = "BETINA ANDERSSON"
         label.font = UIFont.boldSystemFont(ofSize: 30.0)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
@@ -235,7 +250,7 @@ class SkillsCell : UITableViewCell {
         let label = UILabel()
         label.text = " Skills"
         label.textColor = #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1)
-        label.font = UIFont.boldSystemFont(ofSize: 14.0)
+        label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -243,7 +258,7 @@ class SkillsCell : UITableViewCell {
     let skillsTextView  : UITextView = {
         let textView = UITextView()
         textView.text = "Swift, c#, Java, Unix, iOS development, C, Arduino, Scrum, Unity 3D, MatLab, HTML, CSS, JavaScript, C"
-        textView.font = UIFont.systemFont(ofSize: 13)
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         textView.backgroundColor = UIColor.clear
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -255,7 +270,7 @@ class SkillsCell : UITableViewCell {
         addSubview(skillsContainerView)
         skillsContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
         skillsContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
-        skillsContainerView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        skillsContainerView.heightAnchor.constraint(equalToConstant: 64).isActive = true
         skillsContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         
         skillsContainerView.addSubview(skillsLabel)
@@ -267,7 +282,7 @@ class SkillsCell : UITableViewCell {
         skillsContainerView.addSubview(skillsTextView)
         skillsTextView.leadingAnchor.constraint(equalTo: skillsContainerView.leadingAnchor, constant: 6).isActive = true
         skillsTextView.topAnchor.constraint(equalTo: skillsLabel.topAnchor, constant: 10).isActive = true
-        skillsTextView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        skillsTextView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         skillsTextView.trailingAnchor.constraint(equalTo: skillsContainerView.trailingAnchor, constant: -6).isActive = true
         
     }
@@ -288,7 +303,7 @@ class AboutMeCell : UITableViewCell {
         let label = UILabel()
         label.text = " About me"
         label.textColor = #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1)
-        label.font = UIFont.boldSystemFont(ofSize: 14.0)
+        label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -296,7 +311,7 @@ class AboutMeCell : UITableViewCell {
     let aboutTextView  : UITextView = {
         let textView = UITextView()
         textView.text = "En nyfiken och glad programmerare som läste Datateknik Högskoelinegnjör på Chalmers. Tog examen 2018 och har sedan dess jobbat som konsult. Brinner för utveckling inom front end och maskinnära skapelser. Har erfarenhet inom iOS utveckling samt konfigurering av operativsystem för radars. Drivs av utmaningar och har ett genuint intresse för att bredda mina kunskaper."
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         textView.backgroundColor = UIColor.clear
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -308,7 +323,7 @@ class AboutMeCell : UITableViewCell {
         addSubview(aboutContainerView)
         aboutContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
         aboutContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
-        aboutContainerView.heightAnchor.constraint(equalToConstant: 135).isActive = true
+        aboutContainerView.heightAnchor.constraint(equalToConstant: 180).isActive = true
         aboutContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         
         aboutContainerView.addSubview(aboutLabel)
@@ -320,7 +335,7 @@ class AboutMeCell : UITableViewCell {
         aboutContainerView.addSubview(aboutTextView)
         aboutTextView.leadingAnchor.constraint(equalTo: aboutContainerView.leadingAnchor, constant: 6).isActive = true
         aboutTextView.topAnchor.constraint(equalTo: aboutLabel.topAnchor, constant: 10).isActive = true
-        aboutTextView.heightAnchor.constraint(equalTo: aboutContainerView.heightAnchor, multiplier: 0.8).isActive = true
+        aboutTextView.heightAnchor.constraint(equalTo: aboutContainerView.heightAnchor, multiplier: 0.9).isActive = true
         aboutTextView.trailingAnchor.constraint(equalTo: aboutContainerView.trailingAnchor, constant: -6).isActive = true
         
     }
@@ -343,7 +358,7 @@ class EarlierExperienceCell : UITableViewCell {
         let label = UILabel()
         label.text = " Student Engineer"
         label.textColor = #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1)
-        label.font = UIFont.boldSystemFont(ofSize: 14.0)
+        label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -351,7 +366,7 @@ class EarlierExperienceCell : UITableViewCell {
     let companyNameLabel : UILabel = {
        let label = UILabel()
         label.text = " Aptiv"
-        label.font = UIFont.boldSystemFont(ofSize: 13.0)
+        label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -360,7 +375,7 @@ class EarlierExperienceCell : UITableViewCell {
     let dateLabel : UILabel = {
         let label = UILabel()
         label.text = "feb - sep, 2018"
-        label.font = label.font.withSize(13)
+        label.font = label.font.withSize(15)
         label.textAlignment = NSTextAlignment.right
         label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -369,7 +384,7 @@ class EarlierExperienceCell : UITableViewCell {
     let cityLabel : UILabel = {
         let label = UILabel()
         label.text = "Göteborg"
-        label.font = label.font.withSize(13)
+        label.font = label.font.withSize(15)
         label.textAlignment = NSTextAlignment.right
         label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -379,7 +394,7 @@ class EarlierExperienceCell : UITableViewCell {
     let descriptionTextView  : UITextView = {
         let textView = UITextView()
         textView.text = "Jobbade med ett kollisionsvarningssystem för spårvagnar. Arbetet innefattade programmering i MatLab och c++, samt byggade av hårdvara till radars. Gav my..."
-        textView.font = UIFont.systemFont(ofSize: 13)
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         textView.backgroundColor = UIColor.clear
         textView.translatesAutoresizingMaskIntoConstraints = false

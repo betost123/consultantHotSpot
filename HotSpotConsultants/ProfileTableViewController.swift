@@ -70,6 +70,11 @@ class ProfileTableViewController: UITableViewController {
                     }
                 }
             }, withCancel: nil)
+            Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String : AnyObject] {
+                    cell.professionLabel.text = dictionary["title"] as? String
+                }
+            }, withCancel: nil)
  
             cell.backgroundColor = UIColor.clear
             

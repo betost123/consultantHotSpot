@@ -62,32 +62,37 @@ class EditProfileTableViewController: UITableViewController {
         } else if indexPath.row > 0 && indexPath.row <= 5 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as! ShortInfoEditCell
             let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dictionary = snapshot.value as? [String : AnyObject] {
-                    switch indexPath.row {
-                    case 1:
-                        if let name = dictionary["name"] as? String {
-                            cell.objectLabel.text = "Name"
-                            cell.editInputTextField.text = name
+                switch indexPath.row {
+                case 1:
+                    Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let dictionary = snapshot.value as? [String : AnyObject] {
+                            if let name = dictionary["name"] as? String {
+                                cell.objectLabel.text = "Name"
+                                cell.editInputTextField.text = name
+                            }
                         }
-                    case 2:
-                        cell.objectLabel.text = "Title"
-                        cell.editInputTextField.placeholder = "SOFTWARE ENGINEER"
-                    case 3:
-                        cell.objectLabel.text = "Github"
-                        cell.editInputTextField.placeholder = "betost123@github"
-                    case 4:
-                        cell.objectLabel.text =  "City"
-                        cell.editInputTextField.placeholder = "LINKÖPING, SWE"
-                    case 5:
-                        cell.objectLabel.text = "Mail"
-                        cell.editInputTextField.placeholder = "betina@mail.se"
-                    default:
-                        cell.objectLabel.text = ""
-                    }
+                    }, withCancel: nil)
+                case 2:
+                    Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let dictionary = snapshot.value as? [String : AnyObject] {
+                            if let title = dictionary["title"] as? String {
+                                cell.objectLabel.text = "Title"
+                                cell.editInputTextField.text = title
+                            }
+                        }
+                    }, withCancel: nil)
+                case 3:
+                    cell.objectLabel.text = "Github"
+                    cell.editInputTextField.placeholder = "betost123@github"
+                case 4:
+                    cell.objectLabel.text =  "City"
+                    cell.editInputTextField.placeholder = "LINKÖPING, SWE"
+                case 5:
+                    cell.objectLabel.text = "Mail"
+                    cell.editInputTextField.placeholder = "betina@mail.se"
+                default:
+                    cell.objectLabel.text = ""
                 }
-            }, withCancel: nil)
-            
         }
         
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "thirdCustomCell")
@@ -104,10 +109,41 @@ class EditProfileTableViewController: UITableViewController {
         return 48
     }
     
+    //Create or add node of information to user
     @objc func doneButtonHandler() {
-        print("user is done editing")
+        //Get user info from cell
+        let indexPath = IndexPath(row: 2, section: 0)
+        //guard let cell = tableView.cellForRow(at: indexPath) as? ShortInfoEditCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
+            print("Error in EditProfileTableViewController.doneButtonHAndler")
+            return
+        }
+        guard let title = cell.editInputTextField.text, let uid = Auth.auth().currentUser?.uid else {
+            print("Nothing to save")
+            return
+        }
+        
+        //Register into database
+        let values = ["title" : title]
+        self.registerInfoIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
+        
     }
     
+    //Register into database
+    private func registerInfoIntoDatabaseWithUID(uid : String, values : [String : AnyObject]) {
+        var ref : DatabaseReference!
+        ref = Database.database().reference()
+        let userInfoRef = ref.child("userInfo").child(uid)
+        
+        userInfoRef.updateChildValues(values) { (err, ref) in
+            if err != nil {
+                print(err ?? "error EditProfileTableViewController.registerInfoIntoDatabaseWithUID")
+                return
+            }
+            
+            print("Successfully added user information from text field")
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

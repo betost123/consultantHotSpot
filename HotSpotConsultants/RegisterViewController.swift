@@ -102,6 +102,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
     
+    //MARK: Register user into database
+    //let values = ["name" : name, "mail" : mail, "profileImageUrl" : downloadURL]
     private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
         var ref: DatabaseReference!
         ref = Database.database().reference()
@@ -113,11 +115,6 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 return
             }
             print("saved user successfully into firebase db")
-            //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            //let mpvc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-            //self.present(mpvc, animated: true, completion: nil)
-            //let newChatController = ChatController()
-            //self.navigationController?.pushViewController(newChatController, animated: true)
             self.dismiss(animated: true, completion: nil)
         })
     }

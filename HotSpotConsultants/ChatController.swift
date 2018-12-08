@@ -30,7 +30,6 @@ class ChatController: UITableViewController {
         self.navigationItem.setLeftBarButton(logOutButton, animated: true)
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         let chatButton = UIBarButtonItem(title: "new", style: .plain, target: self, action: #selector(handleMessages))
-        //let butt = UIBarButtonItem(image: UIImage(named: "newMessageIcon"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(handleMessages))
         self.navigationItem.rightBarButtonItem = chatButton
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         

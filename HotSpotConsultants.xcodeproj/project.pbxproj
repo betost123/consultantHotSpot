@@ -26,6 +26,8 @@
 		E598C4B321AACEDF00175BDC /* Assets copy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E598C4B221AACEDF00175BDC /* Assets copy.xcassets */; };
 		E598C4B521AF211A00175BDC /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */; };
 		E5FFE52121B5BE8400767854 /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52021B5BE8400767854 /* Experience.swift */; };
+		E5FFE52321B9081500767854 /* ProfileViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52221B9081500767854 /* ProfileViewCells.swift */; };
+		E5FFE52521B97B2900767854 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		E598C4B221AACEDF00175BDC /* Assets copy.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets copy.xcassets"; sourceTree = "<group>"; };
 		E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		E5FFE52021B5BE8400767854 /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
+		E5FFE52221B9081500767854 /* ProfileViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCells.swift; sourceTree = "<group>"; };
+		E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		F0CF259CCE0214B7E9377648 /* Pods-HotSpotConsultants.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotSpotConsultants.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +120,7 @@
 				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
 				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
 				E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */,
+				E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */,
 				E561DD9F219CB76E001CF59E /* ChatController.swift */,
 				E527A87C2188ED480049B464 /* RegisterViewController.swift */,
 				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
@@ -157,6 +162,7 @@
 			children = (
 				E561DDA621A059D5001CF59E /* UserCell.swift */,
 				E561DDA821A17703001CF59E /* ChatMessageCell.swift */,
+				E5FFE52221B9081500767854 /* ProfileViewCells.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -294,12 +300,14 @@
 				E5FFE52121B5BE8400767854 /* Experience.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
+				E5FFE52321B9081500767854 /* ProfileViewCells.swift in Sources */,
 				E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */,
 				E561DD782196126D001CF59E /* Extensions.swift in Sources */,
 				E527A8692188B39B0049B464 /* AppDelegate.swift in Sources */,
 				E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */,
 				E561DD9A219A2135001CF59E /* ChatLogCollectionViewController.swift in Sources */,
 				E561DD9E219B74E0001CF59E /* Message.swift in Sources */,
+				E5FFE52521B97B2900767854 /* EditProfileTableViewController.swift in Sources */,
 				E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */,
 				E561DD73218B2DB9001CF59E /* User.swift in Sources */,
 			);

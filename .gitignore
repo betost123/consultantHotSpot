@@ -6,7 +6,7 @@
 
 #Cocoa Pods
 #Pods/
-#Podfile
+Podfile
 Podfile.lock
 
 #images and other irrelevant resources

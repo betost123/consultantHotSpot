@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 
-class EditProfileTableViewController: UITableViewController {
+class EditProfileTableViewController: UITableViewController, UITextFieldDelegate {
+    let ptvc = ProfileTableViewController()
     let cellID = "cellID"
     let cellIDs = "cellIDs"
 
@@ -26,6 +27,11 @@ class EditProfileTableViewController: UITableViewController {
         
         tableView.register(EditProfilePictureCell.self, forCellReuseIdentifier: cellID)
         tableView.register(ShortInfoEditCell.self, forCellReuseIdentifier: cellIDs)
+        
+        //keyboard handle
+        tableView.keyboardDismissMode = .interactive
+        
+        
     }
 
     // MARK: - Table view data source
@@ -61,32 +67,54 @@ class EditProfileTableViewController: UITableViewController {
             return cell
         } else if indexPath.row > 0 && indexPath.row <= 5 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as! ShortInfoEditCell
+            //Save user info into variable from database
             let uid = Auth.auth().currentUser?.uid
+            
                 switch indexPath.row {
                 case 1:
+                    cell.objectLabel.text = "Name"
                     Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                         if let dictionary = snapshot.value as? [String : AnyObject] {
                             if let name = dictionary["name"] as? String {
-                                cell.objectLabel.text = "Name"
                                 cell.editInputTextField.text = name
                             }
+                        } else {
+                            cell.editInputTextField.placeholder = "your name"
                         }
                     }, withCancel: nil)
                 case 2:
+                    cell.objectLabel.text = "Title"
                     Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                         if let dictionary = snapshot.value as? [String : AnyObject] {
-                            if let title = dictionary["title"] as? String {
-                                cell.objectLabel.text = "Title"
+                            if let title = dictionary["title"] as? String{
                                 cell.editInputTextField.text = title
                             }
+                        } else {
+                            cell.editInputTextField.placeholder = "your title"
                         }
                     }, withCancel: nil)
                 case 3:
                     cell.objectLabel.text = "Github"
-                    cell.editInputTextField.placeholder = "betost123@github"
+                    Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let dictionary = snapshot.value as? [String : AnyObject] {
+                            if let github = dictionary["github"] as? String{
+                                cell.editInputTextField.text = "\(github)@github"
+                            }
+                        } else {
+                            cell.editInputTextField.placeholder = "your github@github"
+                        }
+                    }, withCancel: nil)
                 case 4:
                     cell.objectLabel.text =  "City"
-                    cell.editInputTextField.placeholder = "LINKÖPING, SWE"
+                    Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let dictionary = snapshot.value as? [String : AnyObject] {
+                            if let city = dictionary["city"] as? String{
+                                cell.editInputTextField.text = city
+                            }
+                        } else {
+                            cell.editInputTextField.placeholder = "your city"
+                        }
+                    }, withCancel: nil)
                 case 5:
                     cell.objectLabel.text = "Mail"
                     cell.editInputTextField.placeholder = "betina@mail.se"
@@ -112,8 +140,7 @@ class EditProfileTableViewController: UITableViewController {
     //Create or add node of information to user
     @objc func doneButtonHandler() {
         //Get user info from cell
-        let indexPath = IndexPath(row: 2, section: 0)
-        //guard let cell = tableView.cellForRow(at: indexPath) as? ShortInfoEditCell else {
+        var indexPath = IndexPath(row: 2, section: 0)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
             print("Error in EditProfileTableViewController.doneButtonHAndler")
             return
@@ -123,9 +150,33 @@ class EditProfileTableViewController: UITableViewController {
             return
         }
         
+        indexPath = IndexPath(row: 3, section: 0)
+        guard let cell2 = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
+            print("Error in EditProfileTableViewController.doneButtonHAndler")
+            return
+        }
+        guard let github = cell2.editInputTextField.text else {
+            print("nothing to save for github"); return
+        }
+        
+        indexPath = IndexPath(row: 4, section: 0)
+        guard let cell3 = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
+            print("Error in EditProfileTableViewController.doneButtonHAndler")
+            return
+        }
+        guard let city = cell3.editInputTextField.text else {
+            print("nothing to save for github"); return
+        }
+
+        
         //Register into database
-        let values = ["title" : title]
+        let values = ["title" : title, "github" : github, "city" : city]
         self.registerInfoIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
+        
+        //Update view
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
     }
     
@@ -144,6 +195,32 @@ class EditProfileTableViewController: UITableViewController {
             print("Successfully added user information from text field")
         }
     }
+    
+    /*
+    func getUserInfoFromDatabase() {
+        print("Retrieving user info!")
+        
+        //Save user info into variable from database
+        let uid = Auth.auth().currentUser?.uid
+        
+        Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String : AnyObject] {
+                if let name = dictionary["name"] as? String {
+                    //
+                }
+            }
+        }, withCancel: nil)
+        Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String : AnyObject] {
+                if let title = dictionary["title"] as? String,
+                    let github = dictionary["github"] as? String,
+                    let city = dictionary["city"] as? String {
+                    //
+                }
+            }
+        }, withCancel: nil)
+    }
+ */
 
     /*
     // Override to support conditional editing of the table view.
@@ -190,4 +267,15 @@ class EditProfileTableViewController: UITableViewController {
     }
     */
 
+}
+
+
+
+
+
+class UserInfo : NSObject{
+    var name : String?
+    var title : String?
+    var github : String?
+    var city : String?
 }

@@ -114,6 +114,7 @@ class ProfileTableViewController: UITableViewController {
     }
     
     
+    
     //MARK: User related info
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {

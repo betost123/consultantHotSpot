@@ -42,7 +42,7 @@ class ProfileHeaderCell : UITableViewCell {
     
     let professionLabel : UILabel = {
         let label = UILabel()
-        label.text = "SOFTWARE ENGINEER"
+        //label.text = "SOFTWARE ENGINEER"
         label.font = label.font.withSize(17.9)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -114,6 +114,8 @@ class SkillsCell : UITableViewCell {
     let skillsContainerView : UIView = {
         let scv = UIView()
         scv.backgroundColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
+        scv.layer.cornerRadius = 10
+        scv.layer.masksToBounds = true
         scv.translatesAutoresizingMaskIntoConstraints = false
         return scv
     }()
@@ -167,6 +169,8 @@ class AboutMeCell : UITableViewCell {
     let aboutContainerView : UIView = {
         let acv = UIView()
         acv.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0.850786601)
+        acv.layer.cornerRadius = 10
+        acv.layer.masksToBounds = true
         acv.translatesAutoresizingMaskIntoConstraints = false
         return acv
     }()
@@ -222,6 +226,8 @@ class EarlierExperienceCell : UITableViewCell {
     let experienceContainerView : UIView = {
         let acv = UIView()
         acv.backgroundColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
+        acv.layer.cornerRadius = 10
+        acv.layer.masksToBounds = true
         acv.translatesAutoresizingMaskIntoConstraints = false
         return acv
     }()
@@ -370,14 +376,14 @@ class ShortInfoEditCell : UITableViewCell {
     
     let objectLabel : UILabel = {
         let label = UILabel()
-        label.text = "Name"
+        //label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let editInputTextField : UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Betina Andersson"
+        //tf.placeholder = "Betina Andersson"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()

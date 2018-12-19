@@ -113,17 +113,10 @@
 				E561DDA521A059B7001CF59E /* View */,
 				E561DD7621961255001CF59E /* Helpers */,
 				E561DD74218B3F30001CF59E /* Controller */,
-				E527A8682188B39B0049B464 /* AppDelegate.swift */,
 				E561DD71218B2D9B001CF59E /* Model */,
+				E527A8682188B39B0049B464 /* AppDelegate.swift */,
 				E527A86A2188B39B0049B464 /* ViewController.swift */,
 				E527A86C2188B39B0049B464 /* Main.storyboard */,
-				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
-				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
-				E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */,
-				E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */,
-				E561DD9F219CB76E001CF59E /* ChatController.swift */,
-				E527A87C2188ED480049B464 /* RegisterViewController.swift */,
-				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
 				E527A8712188B39E0049B464 /* LaunchScreen.storyboard */,
 				E527A8742188B39E0049B464 /* Info.plist */,
 				E527A87E2189A26F0049B464 /* GoogleService-Info.plist */,
@@ -145,6 +138,13 @@
 		E561DD74218B3F30001CF59E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E561DD99219A2135001CF59E /* ChatLogCollectionViewController.swift */,
+				E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */,
+				E527A87A2188ED3B0049B464 /* LoginViewController.swift */,
+				E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */,
+				E527A87C2188ED480049B464 /* RegisterViewController.swift */,
+				E561DD9F219CB76E001CF59E /* ChatController.swift */,
+				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

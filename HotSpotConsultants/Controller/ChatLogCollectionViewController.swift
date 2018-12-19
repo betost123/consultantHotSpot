@@ -82,10 +82,8 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         
         containerView.addSubview(self.inputTextfield)
         self.inputTextfield.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        //self.inputTextfield.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         self.inputTextfield.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 6).isActive = true
         self.inputTextfield.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        //self.inputTextfield.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.85).isActive = true
         self.inputTextfield.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         return containerView

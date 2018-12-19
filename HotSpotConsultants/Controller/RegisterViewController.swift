@@ -114,6 +114,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 print(err ?? "error")
                 return
             }
+            //FIXME: Bugs out because of dismiss, make some sort of hidden view to the Login Controller
             print("saved user successfully into firebase db")
             self.dismiss(animated: true, completion: nil)
         })

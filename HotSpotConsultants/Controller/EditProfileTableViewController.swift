@@ -17,14 +17,17 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Bakground image
         let backgroundImageView = UIImageView(image: UIImage(named: "snowMountain"))
         backgroundImageView.contentMode = .scaleAspectFill
         tableView.backgroundView = backgroundImageView
         
+        //Navigation bar
         self.navigationItem.title = "Edit profile"
         let doneButton = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(doneButtonHandler))
         self.navigationItem.rightBarButtonItem = doneButton
         
+        //table view related information
         tableView.register(EditProfilePictureCell.self, forCellReuseIdentifier: cellID)
         tableView.register(ShortInfoEditCell.self, forCellReuseIdentifier: cellIDs)
         
@@ -34,20 +37,14 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         
     }
 
-    // MARK: - Table view data source
-
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 3
-    }
- */
-
+    //FIXME: Once implementation done, return x + earlierWorkExperience.count
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
 
-    
+    //TODO: Retrieve data from database in a nice way
+    //make rows non-clickable
+    //make static
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EditProfilePictureCell
@@ -98,7 +95,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
                     Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                         if let dictionary = snapshot.value as? [String : AnyObject] {
                             if let github = dictionary["github"] as? String{
-                                cell.editInputTextField.text = "\(github)@github"
+                                cell.editInputTextField.text = "github@\(github)"
                             }
                         } else {
                             cell.editInputTextField.placeholder = "your github@github"
@@ -132,11 +129,14 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
+            //edit picture cell
             return (100+25+8+10+6)
         }
         return 48
     }
     
+    //TODO: Save even if text field is active
+    //alternativ: spara från keyboard istället så är man alltid done editing?
     //Create or add node of information to user
     @objc func doneButtonHandler() {
         //Get user info from cell
@@ -196,32 +196,16 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+ 
+    // MARK: - Table view data source
+    
     /*
-    func getUserInfoFromDatabase() {
-        print("Retrieving user info!")
-        
-        //Save user info into variable from database
-        let uid = Auth.auth().currentUser?.uid
-        
-        Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String : AnyObject] {
-                if let name = dictionary["name"] as? String {
-                    //
-                }
-            }
-        }, withCancel: nil)
-        Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String : AnyObject] {
-                if let title = dictionary["title"] as? String,
-                    let github = dictionary["github"] as? String,
-                    let city = dictionary["city"] as? String {
-                    //
-                }
-            }
-        }, withCancel: nil)
-    }
- */
-
+     override func numberOfSections(in tableView: UITableView) -> Int {
+     // #warning Incomplete implementation, return the number of sections
+     return 3
+     }
+     */
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -273,7 +257,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
 
 
 
-class UserInfo : NSObject{
+class UserInfoForTableCell : NSObject{
     var name : String?
     var title : String?
     var github : String?

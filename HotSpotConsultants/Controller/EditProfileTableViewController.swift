@@ -257,7 +257,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
 
 
 
-class UserInfoForTableCell : NSObject{
+struct UserInfoForTableCell {
     var name : String?
     var title : String?
     var github : String?

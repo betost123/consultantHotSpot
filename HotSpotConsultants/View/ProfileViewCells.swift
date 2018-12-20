@@ -369,44 +369,218 @@ class EditProfilePictureCell : UITableViewCell {
 class ShortInfoEditCell : UITableViewCell {
     let containerView : UIView = {
         let container = UIView()
-        //container.backgroundColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
     
-    let objectLabel : UILabel = {
+    //name
+    let nameLabel : UILabel = {
         let label = UILabel()
-        //label.text = "Name"
+        label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let editInputTextField : UITextField = {
+    let nameEditInputTextField : UITextField = {
         let tf = UITextField()
         //tf.placeholder = "Betina Andersson"
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
     
+    let nameFieldSeparator : UIView = {
+        let s = UIView()
+        s.backgroundColor = UIColor(red:0.88, green:0.64, blue:0.60, alpha:1.0)
+        s.translatesAutoresizingMaskIntoConstraints = false
+        return s
+    }()
+    
+    //title
+    let titleLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Title"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let titleEditInputTextField : UITextField = {
+        let tf = UITextField()
+        //tf.placeholder = "Betina Andersson"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    let titleFieldSeparator : UIView = {
+        let s = UIView()
+        s.backgroundColor = UIColor(red:0.88, green:0.64, blue:0.60, alpha:1.0)
+        s.translatesAutoresizingMaskIntoConstraints = false
+        return s
+    }()
+    
+    //github
+    let githubLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Github"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let githubEditInputTextField : UITextField = {
+        let tf = UITextField()
+        //tf.placeholder = "Betina Andersson"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    let githubFieldSeparator : UIView = {
+        let s = UIView()
+        s.backgroundColor = UIColor(red:0.88, green:0.64, blue:0.60, alpha:1.0)
+        s.translatesAutoresizingMaskIntoConstraints = false
+        return s
+    }()
+    
+    //city
+    let cityLabel : UILabel = {
+        let label = UILabel()
+        label.text = "City"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let cityEditInputTextField : UITextField = {
+        let tf = UITextField()
+        //tf.placeholder = "Betina Andersson"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    let cityFieldSeparator : UIView = {
+        let s = UIView()
+        s.backgroundColor = UIColor(red:0.88, green:0.64, blue:0.60, alpha:1.0)
+        s.translatesAutoresizingMaskIntoConstraints = false
+        return s
+    }()
+    
+    //mail
+    let mailLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Mail"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let mailEditInputTextField : UITextField = {
+        let tf = UITextField()
+        //tf.placeholder = "Betina Andersson"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    let mailFieldSeparator : UIView = {
+        let s = UIView()
+        s.backgroundColor = UIColor(red:0.88, green:0.64, blue:0.60, alpha:1.0)
+        s.translatesAutoresizingMaskIntoConstraints = false
+        return s
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        //container view
         addSubview(containerView)
         containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
         containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         containerView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 45*5+4).isActive = true
         
-        containerView.addSubview(objectLabel)
-        objectLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        objectLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
-        objectLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        objectLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        //name field
+        containerView.addSubview(nameLabel)
+        nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        nameLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         
-        containerView.addSubview(editInputTextField)
-        editInputTextField.leftAnchor.constraint(equalTo: objectLabel.rightAnchor, constant: 1).isActive = true
-        editInputTextField.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        editInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
-        editInputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        containerView.addSubview(nameEditInputTextField)
+        nameEditInputTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 1).isActive = true
+        nameEditInputTextField.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        nameEditInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
+        nameEditInputTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        containerView.addSubview(nameFieldSeparator)
+        nameFieldSeparator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32).isActive = true
+        nameFieldSeparator.topAnchor.constraint(equalTo: nameEditInputTextField.bottomAnchor).isActive = true
+        nameFieldSeparator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        nameFieldSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        //title filed
+        containerView.addSubview(titleLabel)
+        titleLabel.topAnchor.constraint(equalTo: nameFieldSeparator.bottomAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        containerView.addSubview(titleEditInputTextField)
+        titleEditInputTextField.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 1).isActive = true
+        titleEditInputTextField.topAnchor.constraint(equalTo: titleLabel.topAnchor).isActive = true
+        titleEditInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
+        titleEditInputTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        containerView.addSubview(titleFieldSeparator)
+        titleFieldSeparator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32).isActive = true
+        titleFieldSeparator.topAnchor.constraint(equalTo: titleEditInputTextField.bottomAnchor).isActive = true
+        titleFieldSeparator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        titleFieldSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        //github field
+        containerView.addSubview(githubLabel)
+        githubLabel.topAnchor.constraint(equalTo: titleFieldSeparator.bottomAnchor).isActive = true
+        githubLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
+        githubLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        githubLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        containerView.addSubview(githubEditInputTextField)
+        githubEditInputTextField.leftAnchor.constraint(equalTo: githubLabel.rightAnchor, constant: 1).isActive = true
+        githubEditInputTextField.topAnchor.constraint(equalTo: githubLabel.topAnchor).isActive = true
+        githubEditInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
+        githubEditInputTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        containerView.addSubview(githubFieldSeparator)
+        githubFieldSeparator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32).isActive = true
+        githubFieldSeparator.topAnchor.constraint(equalTo: githubEditInputTextField.bottomAnchor).isActive = true
+        githubFieldSeparator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        githubFieldSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        //city field
+        containerView.addSubview(cityLabel)
+        cityLabel.topAnchor.constraint(equalTo: githubFieldSeparator.bottomAnchor).isActive = true
+        cityLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
+        cityLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        cityLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        containerView.addSubview(cityEditInputTextField)
+        cityEditInputTextField.leftAnchor.constraint(equalTo: cityLabel.rightAnchor, constant: 1).isActive = true
+        cityEditInputTextField.topAnchor.constraint(equalTo: cityLabel.topAnchor).isActive = true
+        cityEditInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
+        cityEditInputTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        containerView.addSubview(cityFieldSeparator)
+        cityFieldSeparator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32).isActive = true
+        cityFieldSeparator.topAnchor.constraint(equalTo: cityEditInputTextField.bottomAnchor).isActive = true
+        cityFieldSeparator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        cityFieldSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        //mail field
+        containerView.addSubview(mailLabel)
+        mailLabel.topAnchor.constraint(equalTo: cityFieldSeparator.bottomAnchor).isActive = true
+        mailLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
+        mailLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        mailLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        containerView.addSubview(mailEditInputTextField)
+        mailEditInputTextField.leftAnchor.constraint(equalTo: mailLabel.rightAnchor, constant: 1).isActive = true
+        mailEditInputTextField.topAnchor.constraint(equalTo: mailLabel.topAnchor).isActive = true
+        mailEditInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
+        mailEditInputTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+
     }
     
     required init?(coder aDecoder: NSCoder) {

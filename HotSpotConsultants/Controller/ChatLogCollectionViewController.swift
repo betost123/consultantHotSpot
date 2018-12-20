@@ -99,7 +99,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
     }
 
     //MARK: Functions
-    func observeMessage() {
+    private func observeMessage() {
         guard let uid = Auth.auth().currentUser?.uid, let toID = user?.id else {return}
         let userMessagesRef = Database.database().reference().child("user-messages").child(uid).child(toID)
         userMessagesRef.observe(.childAdded, with: { (snapshot) in
@@ -122,7 +122,7 @@ class ChatLogCollectionViewController: UICollectionViewController, UITextFieldDe
         }, withCancel: nil)
     }
     
-    @objc func handleSendMessage() {
+    @objc private func handleSendMessage() {
         var ref: DatabaseReference!
         ref = Database.database().reference()
         let messagesRef = ref.child("messages")

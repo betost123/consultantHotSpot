@@ -42,12 +42,10 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         return 5
     }
 
-    //TODO: Retrieve data from database in a nice way
-    //make rows non-clickable
-    //make static
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EditProfilePictureCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
             //Get user from database
             let uid = Auth.auth().currentUser?.uid
@@ -62,69 +60,46 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             cell.backgroundColor = UIColor.clear
             
             return cell
-        } else if indexPath.row > 0 && indexPath.row <= 5 {
+        } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as! ShortInfoEditCell
-            //Save user info into variable from database
-            let uid = Auth.auth().currentUser?.uid
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none //non-selectable
             
-                switch indexPath.row {
-                case 1:
-                    cell.objectLabel.text = "Name"
-                    Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let dictionary = snapshot.value as? [String : AnyObject] {
-                            if let name = dictionary["name"] as? String {
-                                cell.editInputTextField.text = name
-                            }
-                        } else {
-                            cell.editInputTextField.placeholder = "your name"
-                        }
-                    }, withCancel: nil)
-                case 2:
-                    cell.objectLabel.text = "Title"
-                    Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let dictionary = snapshot.value as? [String : AnyObject] {
-                            if let title = dictionary["title"] as? String{
-                                cell.editInputTextField.text = title
-                            }
-                        } else {
-                            cell.editInputTextField.placeholder = "your title"
-                        }
-                    }, withCancel: nil)
-                case 3:
-                    cell.objectLabel.text = "Github"
-                    Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let dictionary = snapshot.value as? [String : AnyObject] {
-                            if let github = dictionary["github"] as? String{
-                                cell.editInputTextField.text = "github@\(github)"
-                            }
-                        } else {
-                            cell.editInputTextField.placeholder = "your github@github"
-                        }
-                    }, withCancel: nil)
-                case 4:
-                    cell.objectLabel.text =  "City"
-                    Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let dictionary = snapshot.value as? [String : AnyObject] {
-                            if let city = dictionary["city"] as? String{
-                                cell.editInputTextField.text = city
-                            }
-                        } else {
-                            cell.editInputTextField.placeholder = "your city"
-                        }
-                    }, withCancel: nil)
-                case 5:
-                    cell.objectLabel.text = "Mail"
-                    cell.editInputTextField.placeholder = "betina@mail.se"
-                default:
-                    cell.objectLabel.text = ""
+            let uid = Auth.auth().currentUser?.uid
+            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String : AnyObject] {
+                    if let name = dictionary["name"] as? String {
+                        cell.nameEditInputTextField.text = name
+                    }
+                } else {
+                    cell.nameEditInputTextField.placeholder = "your name"
                 }
+            }, withCancel: nil)
+            
+            Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String : AnyObject] {
+                    if let title = dictionary["title"] as? String, let github = dictionary["github"] as? String, let city = dictionary["city"] as? String {
+                        cell.titleEditInputTextField.text = title
+                        cell.githubEditInputTextField.text = github
+                        cell.cityEditInputTextField.text = city
+                    }
+                } else {
+                    cell.titleEditInputTextField.placeholder = "yout title"
+                    cell.githubEditInputTextField.placeholder = "your github"
+                    cell.cityEditInputTextField.placeholder = "your github"
+                }
+            }, withCancel: nil)
+            
         }
-        
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "thirdCustomCell")
             //set the data here
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.backgroundColor = UIColor.clear
             return cell
 
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,7 +107,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             //edit picture cell
             return (100+25+8+10+6)
         }
-        return 48
+        return 45*5+4 //edit field plus separator
     }
     
     //TODO: Save even if text field is active
@@ -140,34 +115,15 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     //Create or add node of information to user
     @objc func doneButtonHandler() {
         //Get user info from cell
-        var indexPath = IndexPath(row: 2, section: 0)
+        let indexPath = IndexPath(row: 1, section: 0)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
             print("Error in EditProfileTableViewController.doneButtonHAndler")
             return
         }
-        guard let title = cell.editInputTextField.text, let uid = Auth.auth().currentUser?.uid else {
+        guard let title = cell.titleEditInputTextField.text, let github = cell.githubEditInputTextField.text, let city = cell.cityEditInputTextField.text, let uid = Auth.auth().currentUser?.uid else {
             print("Nothing to save")
             return
         }
-        
-        indexPath = IndexPath(row: 3, section: 0)
-        guard let cell2 = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
-            print("Error in EditProfileTableViewController.doneButtonHAndler")
-            return
-        }
-        guard let github = cell2.editInputTextField.text else {
-            print("nothing to save for github"); return
-        }
-        
-        indexPath = IndexPath(row: 4, section: 0)
-        guard let cell3 = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
-            print("Error in EditProfileTableViewController.doneButtonHAndler")
-            return
-        }
-        guard let city = cell3.editInputTextField.text else {
-            print("nothing to save for github"); return
-        }
-
         
         //Register into database
         let values = ["title" : title, "github" : github, "city" : city]

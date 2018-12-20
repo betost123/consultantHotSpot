@@ -59,6 +59,7 @@ class ProfileTableViewController: UITableViewController {
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDp, for: indexPath) as! ProfileHeaderCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
             //Get user from database
             let uid = Auth.auth().currentUser?.uid
@@ -73,6 +74,8 @@ class ProfileTableViewController: UITableViewController {
             Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dictionary = snapshot.value as? [String : AnyObject] {
                     cell.professionLabel.text = dictionary["title"] as? String
+                    cell.githubLabel.text = ("github@" + (dictionary["github"] as? String ?? "")) //if not found then empty
+                    cell.cityLabel.text = dictionary["city"] as? String
                 }
             }, withCancel: nil)
  
@@ -81,14 +84,17 @@ class ProfileTableViewController: UITableViewController {
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as! SkillsCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.backgroundColor = UIColor.clear
             return cell
         } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDa, for: indexPath) as! AboutMeCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.backgroundColor = UIColor.clear
             return cell
         } else if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDe, for: indexPath) as! EarlierExperienceCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.backgroundColor = UIColor.clear
             return cell
         }
@@ -96,6 +102,7 @@ class ProfileTableViewController: UITableViewController {
             //let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "thirdCustomCell")
             //set the data here
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDe, for: indexPath) as! EarlierExperienceCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.backgroundColor = UIColor.clear
             return cell
         }

@@ -11,32 +11,33 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
 
+    var mapView : GMSMapView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //Navigation bar
         self.navigationItem.title = "HotSpots"
+        let listViewButton = UIBarButtonItem(title: "list view", style: .plain, target: self, action: #selector(listViewButtonHandler))
+        let addEventButton = UIBarButtonItem(title: "add event", style: .plain, target: self, action: #selector(addEventButtonHandler))
+        navigationItem.leftBarButtonItem = listViewButton
+        navigationItem.rightBarButtonItem = addEventButton
         
         setupMap()
     }
-    
-    
-    // Set the status bar style to complement night-mode.
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
  
-    
     func setupMap() {
         // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        //57.706213, 11.940451
+        let camera = GMSCameraPosition.camera(withLatitude: 57.706213, longitude: 11.940451, zoom: 15.0)
+        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         
         //map styling
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+                mapView?.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
             } else {
                 NSLog("Unable to find style.json")
             }
@@ -48,10 +49,24 @@ class MapViewController: UIViewController {
         
         // Creates a marker in the center of the map.
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
+        marker.position = CLLocationCoordinate2D(latitude: 57.706213, longitude: 11.940451)
+        marker.title = "FredagsHackaton!"
+        marker.snippet = "Sigma Technologies"
+        marker.icon = GMSMarker.markerImage(with: .black)
+        //marker.tracksInfoWindowChanges = true //set to true for info window to update automatically
         marker.map = mapView
+    }
+    
+    @objc func listViewButtonHandler() {
+        print("display map event as a list view")
+    }
+    @objc func addEventButtonHandler() {
+        print("lets add an event!")
+    }
+    
+    // Set the status bar style to complement night-mode.
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
 

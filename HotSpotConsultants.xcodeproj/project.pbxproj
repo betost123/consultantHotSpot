@@ -15,6 +15,8 @@
 		E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527A87A2188ED3B0049B464 /* LoginViewController.swift */; };
 		E527A87D2188ED480049B464 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527A87C2188ED480049B464 /* RegisterViewController.swift */; };
 		E527A87F2189A26F0049B464 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E527A87E2189A26F0049B464 /* GoogleService-Info.plist */; };
+		E53B55BB21CB7FCF005A461B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B55BA21CB7FCF005A461B /* MapViewController.swift */; };
+		E53B55BD21CB9E11005A461B /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = E53B55BC21CB9E11005A461B /* style.json */; };
 		E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */; };
 		E561DD73218B2DB9001CF59E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD72218B2DB9001CF59E /* User.swift */; };
 		E561DD782196126D001CF59E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD772196126D001CF59E /* Extensions.swift */; };
@@ -42,6 +44,8 @@
 		E527A87A2188ED3B0049B464 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E527A87C2188ED480049B464 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E527A87E2189A26F0049B464 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E53B55BA21CB7FCF005A461B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E53B55BC21CB9E11005A461B /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewController.swift; sourceTree = "<group>"; };
 		E561DD72218B2DB9001CF59E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E561DD772196126D001CF59E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				E527A87C2188ED480049B464 /* RegisterViewController.swift */,
 				E561DD9F219CB76E001CF59E /* ChatController.swift */,
 				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
+				E53B55BA21CB7FCF005A461B /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				E561DD772196126D001CF59E /* Extensions.swift */,
+				E53B55BC21CB9E11005A461B /* style.json */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -179,6 +185,7 @@
 				E527A8622188B39B0049B464 /* Frameworks */,
 				E527A8632188B39B0049B464 /* Resources */,
 				DFC4D4DA99E776CE43360D52 /* [CP] Embed Pods Frameworks */,
+				49FEE75A9DC80A1078D524EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -230,6 +237,7 @@
 				E527A8732188B39E0049B464 /* LaunchScreen.storyboard in Resources */,
 				E527A87F2189A26F0049B464 /* GoogleService-Info.plist in Resources */,
 				E598C4B321AACEDF00175BDC /* Assets copy.xcassets in Resources */,
+				E53B55BD21CB9E11005A461B /* style.json in Resources */,
 				E527A86E2188B39B0049B464 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +245,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		49FEE75A9DC80A1078D524EA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HotSpotConsultants/Pods-HotSpotConsultants-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5579BEF875A735EAB34A16CC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,6 +344,7 @@
 				E5FFE52521B97B2900767854 /* EditProfileTableViewController.swift in Sources */,
 				E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */,
 				E561DD73218B2DB9001CF59E /* User.swift in Sources */,
+				E53B55BB21CB7FCF005A461B /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,4 +11,10 @@ pod 'Firebase/Storage'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
 
+#Google maps
+source 'https://github.com/CocoaPods/Specs.git'	
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker', '= 2.7.0'
+
 end

@@ -19,6 +19,7 @@ class MapViewController: UIViewController {
         
         //Navigation bar
         self.navigationItem.title = "HotSpots"
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         let listViewButton = UIBarButtonItem(title: "list view", style: .plain, target: self, action: #selector(listViewButtonHandler))
         let addEventButton = UIBarButtonItem(title: "add event", style: .plain, target: self, action: #selector(addEventButtonHandler))
         navigationItem.leftBarButtonItem = listViewButton
@@ -62,6 +63,8 @@ class MapViewController: UIViewController {
     }
     @objc func addEventButtonHandler() {
         print("lets add an event!")
+        let addEventController = AddEventController()
+        navigationController?.pushViewController(addEventController, animated: true)
     }
     
     // Set the status bar style to complement night-mode.

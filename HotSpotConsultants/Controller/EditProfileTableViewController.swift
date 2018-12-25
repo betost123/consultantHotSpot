@@ -45,7 +45,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EditProfilePictureCell
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            cell.selectionStyle = .none
             
             //Get user from database
             let uid = Auth.auth().currentUser?.uid
@@ -67,11 +67,13 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             let uid = Auth.auth().currentUser?.uid
             Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dictionary = snapshot.value as? [String : AnyObject] {
-                    if let name = dictionary["name"] as? String {
+                    if let name = dictionary["name"] as? String, let mail = dictionary["mail"] as? String {
                         cell.nameEditInputTextField.text = name
+                        cell.mailEditInputTextField.text = mail
                     }
                 } else {
                     cell.nameEditInputTextField.placeholder = "your name"
+                    cell.mailEditInputTextField.placeholder = "your@mail.se"
                 }
             }, withCancel: nil)
             
@@ -109,9 +111,7 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         }
         return 45*5+4 //edit field plus separator
     }
-    
-    //TODO: Save even if text field is active
-    //alternativ: spara från keyboard istället så är man alltid done editing?
+
     //Create or add node of information to user
     @objc func doneButtonHandler() {
         //Get user info from cell
@@ -150,6 +150,11 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             
             print("Successfully added user information from text field")
         }
+    }
+    
+    //text field
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
     
  

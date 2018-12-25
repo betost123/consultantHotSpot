@@ -45,6 +45,10 @@ class ProfileTableViewController: UITableViewController {
         //self.clearsSelectionOnViewWillAppear = false
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     @objc func goToEditView() {
         let editController = EditProfileTableViewController()
         navigationController?.pushViewController(editController, animated: true)

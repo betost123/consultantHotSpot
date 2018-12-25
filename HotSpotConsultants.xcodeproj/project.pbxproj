@@ -17,6 +17,7 @@
 		E527A87F2189A26F0049B464 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E527A87E2189A26F0049B464 /* GoogleService-Info.plist */; };
 		E53B55BB21CB7FCF005A461B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B55BA21CB7FCF005A461B /* MapViewController.swift */; };
 		E53B55BD21CB9E11005A461B /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = E53B55BC21CB9E11005A461B /* style.json */; };
+		E53B55BF21CFFCC0005A461B /* AddEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B55BE21CFFCC0005A461B /* AddEventController.swift */; };
 		E561DD70218B2346001CF59E /* ChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */; };
 		E561DD73218B2DB9001CF59E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD72218B2DB9001CF59E /* User.swift */; };
 		E561DD782196126D001CF59E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E561DD772196126D001CF59E /* Extensions.swift */; };
@@ -46,6 +47,7 @@
 		E527A87E2189A26F0049B464 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E53B55BA21CB7FCF005A461B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E53B55BC21CB9E11005A461B /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
+		E53B55BE21CFFCC0005A461B /* AddEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventController.swift; sourceTree = "<group>"; };
 		E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewController.swift; sourceTree = "<group>"; };
 		E561DD72218B2DB9001CF59E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E561DD772196126D001CF59E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				E561DD9F219CB76E001CF59E /* ChatController.swift */,
 				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
 				E53B55BA21CB7FCF005A461B /* MapViewController.swift */,
+				E53B55BE21CFFCC0005A461B /* AddEventController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				E5FFE52121B5BE8400767854 /* Experience.swift in Sources */,
 				E527A87B2188ED3B0049B464 /* LoginViewController.swift in Sources */,
 				E527A86B2188B39B0049B464 /* ViewController.swift in Sources */,
+				E53B55BF21CFFCC0005A461B /* AddEventController.swift in Sources */,
 				E5FFE52321B9081500767854 /* ProfileViewCells.swift in Sources */,
 				E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */,
 				E561DD782196126D001CF59E /* Extensions.swift in Sources */,

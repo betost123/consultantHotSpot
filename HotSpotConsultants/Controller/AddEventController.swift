@@ -8,21 +8,62 @@
 
 import Foundation
 import UIKit
+import Firebase
 
-class AddEventController : UIViewController {
+class AddEventController : UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
          view.addBackground(imageName: "snowMountain", contentMode: .scaleAspectFill)
         
+        //Navigation bar items
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1086953059, green: 0.2194250822, blue: 0.3138863146, alpha: 1)
         self.navigationItem.title = "Add event"
         
         setupView()
     }
     
     @objc func addEventButtonHandler() {
-        print("Add event!")
+        guard let eventName = nameTextField.text,
+        let eventHost = hostTextField.text,
+        let longitude = Double(longitudinalTextField.text!),
+        let latitude = Double(latitudinalTextField.text!) else {
+                print("Form is not valid")
+                return
+        }
+        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("user authentication issue")
+            return
+        }
+        
+        let values = ["eventName" : eventName, "eventHost" : eventHost, "longitude" : longitude, "latitude" : latitude] as [String : Any]
+        self.registerEventIntoDatabaseWithUID(uid: uid, values: values as [String : Any])
+        
+    }
+    
+    //MARK: Register event into database
+    //fix so user can add more than one event
+    private func registerEventIntoDatabaseWithUID(uid: String, values: [String: Any]) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        let usersRef = ref.child("events").child(uid)
+        
+        usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            if err != nil {
+                print(err ?? "error")
+                return
+            }
+            print("successfully saved event into database")
+            //Should clean out text fields
+        })
+    }
+    
+    //Text field
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addEventButtonHandler()
+        return true
     }
     
     

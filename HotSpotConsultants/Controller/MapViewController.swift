@@ -8,10 +8,12 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 class MapViewController: UIViewController {
 
     var mapView : GMSMapView?
+    var events = [Event]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +27,47 @@ class MapViewController: UIViewController {
         navigationItem.leftBarButtonItem = listViewButton
         navigationItem.rightBarButtonItem = addEventButton
         
-        setupMap()
+        observeEvents()
+    }
+    
+    private func observeEvents() {
+        //guard let uid = Auth.auth().currentUser?.uid else {return}
+        let eventsRef = Database.database().reference().child("events")
+        eventsRef.observe(.childAdded, with: { (snapshot) in
+            guard let dictionary = snapshot.value as? [String : AnyObject] else {return}
+            let event = Event()
+            event.eventHost = dictionary["eventHost"] as? String
+            event.eventName = dictionary["eventName"] as? String
+            event.longitude = dictionary["latitude"] as? Double
+            event.latitude = dictionary["longitude"] as? Double
+  
+            self.events.append(event)
+            
+            print("counted events : \(self.events.count)")
+            DispatchQueue.main.async {
+                self.setupMap()
+            }
+        }, withCancel: nil)
+    }
+    
+    private func addEventsFromDatabase() {
+        // Creates a marker in the center of the map.
+        print("counted events for loop : \(events.count)")
+        
+        for event in events {
+            print("IN THE LOOP")
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: event.latitude ?? 57.706213, longitude: event.longitude ?? 11.940451)
+            marker.title = event.eventName
+            marker.snippet = event.eventHost
+            marker.icon = GMSMarker.markerImage(with: #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1))
+            marker.map = mapView
+        }
+
     }
  
     func setupMap() {
-        // Create a GMSCameraPosition that tells the map to display the
-        //57.706213, 11.940451
+        // Create a GMSCameraPosition to open the map at specific place
         let camera = GMSCameraPosition.camera(withLatitude: 57.706213, longitude: 11.940451, zoom: 15.0)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         
@@ -48,14 +85,7 @@ class MapViewController: UIViewController {
         
         view = mapView
         
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 57.706213, longitude: 11.940451)
-        marker.title = "FredagsHackaton!"
-        marker.snippet = "Sigma Technologies"
-        marker.icon = GMSMarker.markerImage(with: .black)
-        //marker.tracksInfoWindowChanges = true //set to true for info window to update automatically
-        marker.map = mapView
+        addEventsFromDatabase()
     }
     
     @objc func listViewButtonHandler() {

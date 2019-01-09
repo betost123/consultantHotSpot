@@ -43,19 +43,18 @@ class MapViewController: UIViewController {
   
             self.events.append(event)
             
-            print("counted events : \(self.events.count)")
             DispatchQueue.main.async {
                 self.setupMap()
             }
         }, withCancel: nil)
     }
     
+    //FIXME: If latitude and longitude are nil, the map should open and just be empty
     private func addEventsFromDatabase() {
         // Creates a marker in the center of the map.
         print("counted events for loop : \(events.count)")
         
         for event in events {
-            print("IN THE LOOP")
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: event.latitude ?? 57.706213, longitude: event.longitude ?? 11.940451)
             marker.title = event.eventName

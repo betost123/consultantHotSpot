@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ProfileHeaderCell : UITableViewCell {
     
     let contactButton : UIButton = {

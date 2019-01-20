@@ -43,6 +43,14 @@ class eventCell : UITableViewCell {
         return label
     }()
     
+    let activityButton : UIButton = {
+        let button = UIButton()
+        button.backgroundColor = #colorLiteral(red: 1, green: 0.5823014379, blue: 0.01049717236, alpha: 1)
+        button.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         
@@ -63,6 +71,18 @@ class eventCell : UITableViewCell {
         titleLabel.widthAnchor.constraint(equalTo: bottomBarView.widthAnchor, multiplier: 1/4).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: bottomBarView.leadingAnchor, constant: 8).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: bottomBarView.heightAnchor).isActive = true
+        
+        bottomBarView.addSubview(cityLabel)
+        cityLabel.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor).isActive = true
+        cityLabel.widthAnchor.constraint(equalTo: bottomBarView.widthAnchor, multiplier: 1/4).isActive = true
+        cityLabel.leadingAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
+        cityLabel.heightAnchor.constraint(equalTo: bottomBarView.heightAnchor).isActive = true
+        
+        containerView.addSubview(activityButton)
+        activityButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        activityButton.widthAnchor.constraint(equalToConstant: 112).isActive = true
+        activityButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        activityButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 50).isActive = true
         
     }
     

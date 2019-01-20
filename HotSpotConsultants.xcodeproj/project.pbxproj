@@ -30,6 +30,7 @@
 		E598C4B321AACEDF00175BDC /* Assets copy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E598C4B221AACEDF00175BDC /* Assets copy.xcassets */; };
 		E598C4B521AF211A00175BDC /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */; };
 		E5A6D3EA21E517F1002A4A76 /* ListViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6D3E921E517F1002A4A76 /* ListViewCells.swift */; };
+		E5A6D3EE21E67280002A4A76 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6D3ED21E67280002A4A76 /* FeedTableViewController.swift */; };
 		E5FFE52121B5BE8400767854 /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52021B5BE8400767854 /* Experience.swift */; };
 		E5FFE52321B9081500767854 /* ProfileViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52221B9081500767854 /* ProfileViewCells.swift */; };
 		E5FFE52521B97B2900767854 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */; };
@@ -63,6 +64,7 @@
 		E598C4B221AACEDF00175BDC /* Assets copy.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets copy.xcassets"; sourceTree = "<group>"; };
 		E598C4B421AF211A00175BDC /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		E5A6D3E921E517F1002A4A76 /* ListViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCells.swift; sourceTree = "<group>"; };
+		E5A6D3ED21E67280002A4A76 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		E5FFE52021B5BE8400767854 /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		E5FFE52221B9081500767854 /* ProfileViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCells.swift; sourceTree = "<group>"; };
 		E5FFE52421B97B2900767854 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				E561DD6F218B2346001CF59E /* ChatsTableViewController.swift */,
 				E53B55BA21CB7FCF005A461B /* MapViewController.swift */,
 				E53B55BE21CFFCC0005A461B /* AddEventController.swift */,
+				E5A6D3ED21E67280002A4A76 /* FeedTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				E53B55C121D2460B005A461B /* Event.swift in Sources */,
 				E53B55BF21CFFCC0005A461B /* AddEventController.swift in Sources */,
 				E5FFE52321B9081500767854 /* ProfileViewCells.swift in Sources */,
+				E5A6D3EE21E67280002A4A76 /* FeedTableViewController.swift in Sources */,
 				E561DDA921A17703001CF59E /* ChatMessageCell.swift in Sources */,
 				E561DD782196126D001CF59E /* Extensions.swift in Sources */,
 				E527A8692188B39B0049B464 /* AppDelegate.swift in Sources */,

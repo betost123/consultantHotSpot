@@ -5,7 +5,7 @@
 *.pem
 
 #Cocoa Pods
-#Pods/
+Pods/
 Podfile
 #Podfile.lock
 

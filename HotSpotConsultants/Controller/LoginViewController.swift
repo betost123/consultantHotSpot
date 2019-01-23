@@ -128,7 +128,7 @@ class LoginViewController: UIViewController {
         inputsContainerView.addSubview(mailTextField)
         mailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
         mailTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
-        mailTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1)
+        mailTextField.trailingAnchor.constraint(equalTo: inputsContainerView.trailingAnchor, constant: 0).isActive = true
         mailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
         
         inputsContainerView.addSubview(fieldSeparator)

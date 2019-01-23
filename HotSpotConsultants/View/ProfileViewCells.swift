@@ -367,7 +367,17 @@ class EditProfilePictureCell : UITableViewCell {
     
 }
 
+
+protocol ShortInfoEditCellDelegate {
+    func nameChanged(name : String)
+    func titleChanged(title : String)
+    func githubChanged(github : String)
+    func cityChanged(city : String)
+    func mailChanged(mail : String)
+}
 class ShortInfoEditCell : UITableViewCell {
+    var delegate : ShortInfoEditCellDelegate?
+    
     let containerView : UIView = {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -582,6 +592,20 @@ class ShortInfoEditCell : UITableViewCell {
         mailEditInputTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
         mailEditInputTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
 
+        titleEditInputTextField.addTarget(self, action: #selector(titletextFieldDidChange(_:)), for: .editingChanged)
+        cityEditInputTextField.addTarget(self, action: #selector(citytextFieldDidChange(_:)), for: .editingChanged)
+        githubEditInputTextField.addTarget(self, action: #selector(githubtextFieldDidChange(_:)), for: .editingChanged)
+
+    }
+    
+    @objc func titletextFieldDidChange(_ textField: UITextField) {
+        delegate?.titleChanged(title: textField.text ?? " ")
+    }
+    @objc func citytextFieldDidChange(_ textField: UITextField) {
+        delegate?.cityChanged(city: textField.text ?? " ")
+    }
+    @objc func githubtextFieldDidChange(_ textField: UITextField) {
+        delegate?.githubChanged(github: textField.text ?? " ")
     }
     
     required init?(coder aDecoder: NSCoder) {

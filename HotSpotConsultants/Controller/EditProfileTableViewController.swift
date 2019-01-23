@@ -9,13 +9,19 @@
 import UIKit
 import Firebase
 
-class EditProfileTableViewController: UITableViewController, UITextFieldDelegate {
-    let ptvc = ProfileTableViewController()
+class EditProfileTableViewController: UITableViewController, UITextFieldDelegate, ShortInfoEditCellDelegate {
+    var profileTitle : String?
+    var profileName : String?
+    var profileGithub : String?
+    var profileCity : String?
+    var profileMail : String?
     let cellID = "cellID"
     let cellIDs = "cellIDs"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadValuesFromDatabase()
 
         //Bakground image
         let backgroundImageView = UIImageView(image: UIImage(named: "snowMountain"))
@@ -34,6 +40,69 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
         //keyboard handle
         tableView.keyboardDismissMode = .interactive
         
+        
+    }
+    
+    func nameChanged(name: String) {
+        profileName = name
+    }
+    
+    func titleChanged(title: String) {
+        profileTitle = title
+    }
+    
+    func githubChanged(github: String) {
+        profileGithub = github
+    }
+    
+    func cityChanged(city: String) {
+        profileCity = city
+    }
+    
+    func mailChanged(mail: String) {
+        profileMail = mail
+    }
+    
+    func loadValuesFromDatabase() {
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String : AnyObject] {
+                if let name = dictionary["name"] as? String, let mail = dictionary["mail"] as? String {
+                    self.profileName = name
+                    self.profileMail = mail
+                    
+                }
+            } else {
+               self.profileName = "your name"
+                self.profileMail = "your@mail.se"
+            }
+            
+            //Update view
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }, withCancel: nil)
+        
+        Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String : AnyObject] {
+                if let title = dictionary["title"] as? String, let github = dictionary["github"] as? String, let city = dictionary["city"] as? String {
+                    self.profileTitle = title
+                    self.profileGithub = github
+                    self.profileCity = city
+                }
+            } else {
+                self.profileTitle = "yout title"
+                self.profileGithub = "your github"
+                self.profileMail = "your github"
+            }
+            
+            //Update view
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }, withCancel: nil)
         
     }
 
@@ -59,37 +128,22 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
             
             cell.backgroundColor = UIColor.clear
             
+            
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as! ShortInfoEditCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none //non-selectable
             
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dictionary = snapshot.value as? [String : AnyObject] {
-                    if let name = dictionary["name"] as? String, let mail = dictionary["mail"] as? String {
-                        cell.nameEditInputTextField.text = name
-                        cell.mailEditInputTextField.text = mail
-                    }
-                } else {
-                    cell.nameEditInputTextField.placeholder = "your name"
-                    cell.mailEditInputTextField.placeholder = "your@mail.se"
-                }
-            }, withCancel: nil)
+            cell.nameEditInputTextField.text = profileName
+            cell.mailEditInputTextField.text = profileMail
+            cell.titleEditInputTextField.text = profileTitle
+            cell.githubEditInputTextField.text = profileGithub
+            cell.cityEditInputTextField.text = profileCity
             
-            Database.database().reference().child("userInfo").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dictionary = snapshot.value as? [String : AnyObject] {
-                    if let title = dictionary["title"] as? String, let github = dictionary["github"] as? String, let city = dictionary["city"] as? String {
-                        cell.titleEditInputTextField.text = title
-                        cell.githubEditInputTextField.text = github
-                        cell.cityEditInputTextField.text = city
-                    }
-                } else {
-                    cell.titleEditInputTextField.placeholder = "yout title"
-                    cell.githubEditInputTextField.placeholder = "your github"
-                    cell.cityEditInputTextField.placeholder = "your github"
-                }
-            }, withCancel: nil)
+            //när delegaten säger
+            cell.delegate = self
+            
+            return cell
             
         }
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "thirdCustomCell")
@@ -114,20 +168,12 @@ class EditProfileTableViewController: UITableViewController, UITextFieldDelegate
 
     //Create or add node of information to user
     @objc func doneButtonHandler() {
-        //Get user info from cell
-        let indexPath = IndexPath(row: 1, section: 0)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIDs, for: indexPath) as? ShortInfoEditCell else {
-            print("Error in EditProfileTableViewController.doneButtonHAndler")
-            return
-        }
-        guard let title = cell.titleEditInputTextField.text, let github = cell.githubEditInputTextField.text, let city = cell.cityEditInputTextField.text, let uid = Auth.auth().currentUser?.uid else {
-            print("Nothing to save")
-            return
-        }
-        
+
         //Register into database
-        let values = ["title" : title, "github" : github, "city" : city]
-        self.registerInfoIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
+        //let values = ["title" : title, "github" : github, "city" : city]
+        let uid = Auth.auth().currentUser?.uid
+        let values = ["title" : profileTitle, "github" : profileGithub, "city" : profileCity]
+        self.registerInfoIntoDatabaseWithUID(uid: uid!, values: values as [String : AnyObject])
         
         //Update view
         DispatchQueue.main.async {

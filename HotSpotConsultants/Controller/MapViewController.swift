@@ -9,15 +9,27 @@
 import UIKit
 import GoogleMaps
 import Firebase
+import CoreLocation
+//import GooglePlaces
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     var mapView : GMSMapView?
     var events = [Event]()
+    let manager = CLLocationManager()
+    var lat = 57.706213
+    var lng = 11.940451
+    //var placesClient : GMSPlacesClient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //Get position
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
         
         //Navigation bar
         self.navigationItem.title = "HotSpots"
@@ -26,6 +38,8 @@ class MapViewController: UIViewController {
         let addEventButton = UIBarButtonItem(title: "add event", style: .plain, target: self, action: #selector(addEventButtonHandler))
         navigationItem.leftBarButtonItem = listViewButton
         navigationItem.rightBarButtonItem = addEventButton
+        
+       // placesClient = GMSPlacesClient.shared()
         
         observeEvents()
     }
@@ -59,16 +73,21 @@ class MapViewController: UIViewController {
             marker.position = CLLocationCoordinate2D(latitude: event.latitude ?? 57.706213, longitude: event.longitude ?? 11.940451)
             marker.title = event.eventName
             marker.snippet = event.eventHost
-            marker.icon = GMSMarker.markerImage(with: #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1))
+            marker.icon = #imageLiteral(resourceName: "tree1")
+            //marker.icon = GMSMarker.markerImage(with: #colorLiteral(red: 0.8801551461, green: 0.6339178681, blue: 0.6032804847, alpha: 1))
             marker.map = mapView
         }
 
     }
  
     func setupMap() {
+        
         // Create a GMSCameraPosition to open the map at specific place
-        let camera = GMSCameraPosition.camera(withLatitude: 57.706213, longitude: 11.940451, zoom: 15.0)
+        //let camera = GMSCameraPosition.camera(withLatitude: 57.706213, longitude: 11.940451, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 15.0)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        
+        //mapView?.settings.myLocationButton = true
         
         //map styling
         do {
@@ -85,6 +104,21 @@ class MapViewController: UIViewController {
         view = mapView
         
         addEventsFromDatabase()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0]
+        
+        lat = location.coordinate.latitude
+        lng = location.coordinate.longitude
+        
+        let userLocationMarker = GMSMarker(position: location.coordinate)
+        userLocationMarker.icon = #imageLiteral(resourceName: "emoji1")
+        userLocationMarker.map = mapView
+        
+        print("Latitude: \(lat))")
+        print("Longitude: \(lng)")
+        
     }
     
     @objc func listViewButtonHandler() {
